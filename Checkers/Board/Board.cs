@@ -15,9 +15,10 @@ namespace CheckersHafifa
             printToConsole.GetBoardSize();
             _boardSize = validateGameAttributes.ReturnValidBoardSize();
         }
-        public string[][] CreateBoard()
+        public string[,] CreateBoard()
         {
-            throw new NotImplementedException();
+            string[,] board = new string[_boardSize,_boardSize];
+            return board;
         }
     }
 }
