@@ -4,7 +4,7 @@ namespace CheckersHafifa
     {
         public bool ValidateBoardSize(int boardSize)
         {
-            throw new NotImplementedException();
+            return boardSize % 2 == 0 && boardSize > 8;
         }
 
         public bool ValidatePlayerName(string playerName)
