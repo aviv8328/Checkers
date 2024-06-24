@@ -1,0 +1,15 @@
+/Users/avivdror/Desktop/code/Checkers/Checkers/bin/Debug/net8.0/Checkers
+/Users/avivdror/Desktop/code/Checkers/Checkers/bin/Debug/net8.0/Checkers.deps.json
+/Users/avivdror/Desktop/code/Checkers/Checkers/bin/Debug/net8.0/Checkers.runtimeconfig.json
+/Users/avivdror/Desktop/code/Checkers/Checkers/bin/Debug/net8.0/Checkers.dll
+/Users/avivdror/Desktop/code/Checkers/Checkers/bin/Debug/net8.0/Checkers.pdb
+/Users/avivdror/Desktop/code/Checkers/Checkers/obj/Debug/net8.0/Checkers.GeneratedMSBuildEditorConfig.editorconfig
+/Users/avivdror/Desktop/code/Checkers/Checkers/obj/Debug/net8.0/Checkers.AssemblyInfoInputs.cache
+/Users/avivdror/Desktop/code/Checkers/Checkers/obj/Debug/net8.0/Checkers.AssemblyInfo.cs
+/Users/avivdror/Desktop/code/Checkers/Checkers/obj/Debug/net8.0/Checkers.csproj.CoreCompileInputs.cache
+/Users/avivdror/Desktop/code/Checkers/Checkers/obj/Debug/net8.0/Checkers.sourcelink.json
+/Users/avivdror/Desktop/code/Checkers/Checkers/obj/Debug/net8.0/Checkers.dll
+/Users/avivdror/Desktop/code/Checkers/Checkers/obj/Debug/net8.0/refint/Checkers.dll
+/Users/avivdror/Desktop/code/Checkers/Checkers/obj/Debug/net8.0/Checkers.pdb
+/Users/avivdror/Desktop/code/Checkers/Checkers/obj/Debug/net8.0/Checkers.genruntimeconfig.cache
+/Users/avivdror/Desktop/code/Checkers/Checkers/obj/Debug/net8.0/ref/Checkers.dll
