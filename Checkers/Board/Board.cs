@@ -76,7 +76,7 @@ namespace CheckersHafifa
 
         private void PopulateEvenRows(int currentCol, Player player, string[,] board)
         {
-            for (int i = 0; i < board.GetLength(0); i = i + 2)
+            for (int i = 1; i < board.GetLength(0); i = i + 2)
             {
                 board[currentCol, i] = player.pieces[currentCol].pieceColor;
             }
@@ -84,7 +84,7 @@ namespace CheckersHafifa
 
         private void PopulateNegativeRows(int currentCol, Player player, string[,] board)
         {
-            for (int i = 1; i < board.GetLength(1); i = i + 2)
+            for (int i = 0; i < board.GetLength(1); i = i + 2)
             {
                 board[currentCol, i] = player.pieces[currentCol].pieceColor;
             }
