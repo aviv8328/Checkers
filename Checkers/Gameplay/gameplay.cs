@@ -1,3 +1,5 @@
+using System.Dynamic;
+
 namespace CheckersHafifa
 {
     public class Gameplay()
@@ -8,6 +10,10 @@ namespace CheckersHafifa
         }
         public void PromptCurrentPlayer(Player currentPlayer, string[,] board)
         {
+            //TODO :
+            // Get user input in different ways rather than console.readline
+            // Place parse row + col in different file
+
             PrintToConsole printToConsole = new();
             ValidateTurns validateTurns = new();
 
@@ -19,10 +25,16 @@ namespace CheckersHafifa
             if (validateTurns.ValidateChosenPiece(playerMoveChoice, board, currentPlayer.pieces[0].pieceColor))
             {
                 printToConsole.PromptMoveForward();
-                validateTurns.ValidateMoveForward(playerMoveChoice, board);
+                if (validateTurns.ValidateMoveForward(playerMoveChoice, board))
+                {
+                    int col = validateTurns.ParseColPlayerMove(playerMoveChoice);
+                    int row = validateTurns.ParseRowPlayerMove(playerMoveChoice);
+
+                    board[col, row] = "";
+                    board[col + 1, row] = currentPlayer.pieces[0].pieceColor;
+                    printToConsole.PrintBoardToConsole(board);
+                }
             }
-
-
         }
     }
 }

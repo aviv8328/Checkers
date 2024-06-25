@@ -13,7 +13,7 @@ namespace CheckersHafifa
             return int.TryParse(playerMoveSplitted[0], out _) && int.TryParse(playerMoveSplitted[0], out _);
         }
         // TODO: Parse row/col dynamically instead of redundant code
-        private int ParseRowPlayerMove(string playerMove)
+        public int ParseRowPlayerMove(string playerMove)
         {
             PrintToConsole printToConsole = new();
             string[] playerMoveSplitted = playerMove.Split(',');
@@ -28,7 +28,7 @@ namespace CheckersHafifa
                 return -1;
             }
         }
-        private int ParseColPlayerMove(string playerMove)
+        public int ParseColPlayerMove(string playerMove)
         {
             PrintToConsole printToConsole = new();
             string[] playerMoveSplitted = playerMove.Split(',');
@@ -49,7 +49,7 @@ namespace CheckersHafifa
             int col = ParseColPlayerMove(playerMove);
             int row = ParseRowPlayerMove(playerMove);
 
-            return board[col + 1, row] == null;
+            return board[col + 1, row] == null && col + 1 < board.GetLength(1);
         }
 
     }
