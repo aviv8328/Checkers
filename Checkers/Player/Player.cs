@@ -6,15 +6,29 @@ namespace CheckersHafifa
 
         public List<Piece> pieces { get; }
 
-        public Player(string name, int boardSize)
+        public Player(string name, int boardSize, string pieceColor)
         {
             playerName = name;
 
             for (int i = 0; i < ReturnNumberOfPiecesInRow(boardSize); i++)
             {
-                // create piece based on color
+                GeneratePiecesBasedOnColor(pieceColor);
             }            
 
+        }
+
+        private void GeneratePiecesBasedOnColor(string pieceColor)
+        {
+            if (pieceColor == "B")
+            {
+                BlackPieceFactory blackPieceFactory = new();
+                pieces.Add(blackPieceFactory.CreatePiece());
+            }
+            else
+            {
+                WhitePieceFactory whitePieceFactory = new();
+                whitePieceFactory.CreatePiece();
+            }
         }
 
         private int ReturnNumberOfPiecesInRow(int boardSize)
