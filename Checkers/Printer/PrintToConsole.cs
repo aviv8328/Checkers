@@ -22,7 +22,7 @@ namespace CheckersHafifa
                         ? ConsoleColor.Black 
                         : ConsoleColor.White;
                     
-                    Console.Write(" " + board[r, c] + " ");
+                    Console.Write($" " + board[r, c] + " ");
                     Console.ResetColor();
                 }
                 Console.WriteLine();
@@ -46,7 +46,7 @@ namespace CheckersHafifa
 
         public void PromptMoveForward()
         {
-            Console.WriteLine("Do you with to move forward?");
+            Console.WriteLine("Do you wish to move forward?");
         }
 
         public void PromptEatPiece()

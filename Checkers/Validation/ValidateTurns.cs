@@ -2,6 +2,17 @@ namespace CheckersHafifa
 {
     public class ValidateTurns()
     {
+
+        public bool ValidateChosenPiece(string playerMove, string[,] board, string currentPlayerColor)
+        {
+            return ValidateString(playerMove) && board[ParseColPlayerMove(playerMove), ParseRowPlayerMove(playerMove)] == currentPlayerColor;
+        }
+        private bool ValidateString(string playerMove)
+        {
+            string[] playerMoveSplitted = playerMove.Split(",");
+            return int.TryParse(playerMoveSplitted[0], out _) && int.TryParse(playerMoveSplitted[0], out _);
+        }
+        // TODO: Parse row/col dynamically instead of redundant code
         private int ParseRowPlayerMove(string playerMove)
         {
             PrintToConsole printToConsole = new();
@@ -33,24 +44,13 @@ namespace CheckersHafifa
             }
         }
 
-        public bool ValidateChosenPiece(string playerMove, string[,] board, string currentPlayerColor)
+        public bool ValidateMoveForward(string playerMove, string[,] board)
         {
-            return ValidateString(playerMove) && board[ParseColPlayerMove(playerMove), ParseRowPlayerMove(playerMove)] == currentPlayerColor;
+            int col = ParseColPlayerMove(playerMove);
+            int row = ParseRowPlayerMove(playerMove);
+
+            return board[col + 1, row] == null;
         }
 
-        private bool ValidateString(string playerMove)
-        {
-            string[] playerMoveSplitted = playerMove.Split(",");
-            return int.TryParse(playerMoveSplitted[0], out _) && int.TryParse(playerMoveSplitted[0], out _);
-        }
-        // public bool ValidatePlayerMove(string playerMove, string[,] board)
-        // {
-        //     return ValidateMoveForward(ParseColPlayerMove(playerMove), ParseRowPlayerMove(playerMove), board);
-        // }
-
-        // private bool ValidateMoveForward(int col, int row, string[,] board)
-        // {
-        //     if ()
-        // }
     }
 }

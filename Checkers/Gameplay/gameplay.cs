@@ -16,7 +16,11 @@ namespace CheckersHafifa
 
             string playerMoveChoice = Console.ReadLine();
 
-            Console.WriteLine(validateTurns.ValidateChosenPiece(playerMoveChoice, board, currentPlayer.pieces[0].pieceColor));
+            if (validateTurns.ValidateChosenPiece(playerMoveChoice, board, currentPlayer.pieces[0].pieceColor))
+            {
+                printToConsole.PromptMoveForward();
+                validateTurns.ValidateMoveForward(playerMoveChoice, board);
+            }
 
 
         }
