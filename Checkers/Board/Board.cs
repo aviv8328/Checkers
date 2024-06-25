@@ -102,7 +102,7 @@ namespace CheckersHafifa
             }
         }
 
-        public string[,] InitializeGame()
+        private string[,] InitializeGame()
         {
             CreateBoard();
             GeneratePlayers();

@@ -53,5 +53,10 @@ namespace CheckersHafifa
         {
             Console.WriteLine("Eat: Left/Right/Forward");           
         }
+
+        public void PromptInvalidInput()
+        {
+            Console.WriteLine("INVALID input! the format must be ROW,COL, eg. 0,0");
+        }
     }
 }

@@ -4,13 +4,21 @@ namespace CheckersHafifa
     {
         public void StartGame(Player[] players, string[,] board)
         {
-
+            PromptCurrentPlayer(players[0], board);
         }
-        public void PromptCurrentPlayer(Player currentPlayer)
+        public void PromptCurrentPlayer(Player currentPlayer, string[,] board)
         {
             PrintToConsole printToConsole = new();
+            ValidateTurns validateTurns = new();
+
             printToConsole.PrintCurrentPlayerTurnToConsole(currentPlayer);
-            printToConsole.PromptMove();
+            printToConsole.PromptPieceToMove();
+
+            string playerMoveChoice = Console.ReadLine();
+
+            Console.WriteLine(validateTurns.ValidateChosenPiece(playerMoveChoice, board, currentPlayer.pieces[0].pieceColor));
+
+
         }
     }
 }

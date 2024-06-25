@@ -5,7 +5,7 @@
         public static void Main(string[] args)
         {
             Board board = new();
-            board.InitializeGame();
+            board.StartGame();
         }
     }
 }
