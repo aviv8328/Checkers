@@ -33,5 +33,25 @@ namespace CheckersHafifa
         {
             return (row + col) % 2 == 0 ? ConsoleColor.White : ConsoleColor.Black;
         }
+
+        public void PrintCurrentPlayerTurnToConsole(Player player)
+        {
+            Console.WriteLine($"It's {player.playerName} turn!");
+        }
+
+        public void PromptPieceToMove()
+        {
+            Console.WriteLine("Choose a piece to move in the next format: ROW,COL");
+        }
+
+        public void PromptMoveForward()
+        {
+            Console.WriteLine("Do you with to move forward?");
+        }
+
+        public void PromptEatPiece()
+        {
+            Console.WriteLine("Eat: Left/Right/Forward");           
+        }
     }
 }

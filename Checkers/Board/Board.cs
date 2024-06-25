@@ -19,10 +19,21 @@ namespace CheckersHafifa
         }
         private string[,] CreateBoard()
         {
-            string[,] board = new string[_boardSize,_boardSize];
-            return board;
+            return new string[_boardSize,_boardSize];
         }
 
+
+        // TODO: Create 2 equal boards one for the black and one for the white side
+
+        // private string[,] CreateBlackBoard()
+        // {
+        //     return new string[_boardSize,_boardSize];
+        // }
+        // private string[,] CreateWhiteBoard()
+        // {
+        //     return new string[_boardSize,_boardSize];
+        // }
+        
         public void GeneratePlayers()
         {
             // TODO: make it dynamic
@@ -30,7 +41,7 @@ namespace CheckersHafifa
             players[1] = new Player("bb", _boardSize, "B");
         }
 
-        private void PopulateBoard()
+        private string[,] PopulateBoard()
         {
             // TODO: make current col dynamic
             string[,] board = CreateBoard();
@@ -43,7 +54,8 @@ namespace CheckersHafifa
             // TODO: Remove print to console its testy
             PrintToConsole printToConsole = new();
             printToConsole.PrintBoardToConsole(board);
-       
+
+            return board;       
         }
 
         private void ChooseRowsToPopulate(string[,] board, Player player)
@@ -90,11 +102,17 @@ namespace CheckersHafifa
             }
         }
 
-        public void InitializeGame()
+        public string[,] InitializeGame()
         {
             CreateBoard();
             GeneratePlayers();
-            PopulateBoard();
+            return PopulateBoard();
+        }
+
+        public void StartGame()
+        {
+            Gameplay gameplay = new();
+            gameplay.StartGame(players, InitializeGame());
         }
     }
 }
