@@ -4,6 +4,8 @@ namespace CheckersHafifa
     {
         public string playerName { get; }
 
+        public List<Piece> pieces { get; }
+
         public Player(string name)
         {
             playerName = name;   
