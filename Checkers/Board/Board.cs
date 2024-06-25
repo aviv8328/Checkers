@@ -40,9 +40,22 @@ namespace CheckersHafifa
 
             foreach (Player player in players)
             {
-                PopulateEvenRows(0, player, board);
-                PopulateNegativeRows(1, player, board);
-                PopulateEvenRows(2, player, board);
+                AlternateRowPopulating(board, player);
+            }
+        }
+
+        private void AlternateRowPopulating(string[,] board, Player player)
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                if (i % 2 == 0)
+                {
+                    PopulateEvenRows(i, player, board);
+                }
+                else
+                {
+                    PopulateNegativeRows(i, player, board);
+                }
             }
         }
 
