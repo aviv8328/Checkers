@@ -44,11 +44,24 @@ namespace CheckersHafifa
         private void MoveForward(Player currentPlayer, string[,] board, PrintToConsole printToConsole, int col, int row)
         {
             printToConsole.PromptMoveForward();
-            {
-                board[col, row] = "";
-                board[col + 1, row] = currentPlayer.pieces[0].pieceColor;
-                printToConsole.PrintBoardToConsole(board);
-            }
+            
+            board[col, row] = "";
+            board[col + 1, row] = currentPlayer.pieces[0].pieceColor;
+            printToConsole.PrintBoardToConsole(board);            
+        }
+
+        private void EatDiagnalLeft(Player currentPlayer, string[,] board, PrintToConsole printToConsole, int col, int row)
+        {
+            board[col, row] = "";
+            board[col + 1, row] = currentPlayer.pieces[0].pieceColor;
+            printToConsole.PrintBoardToConsole(board);
+        }
+
+        private void EatDiagnalRight(Player currentPlayer, string[,] board, PrintToConsole printToConsole, int col, int row)
+        {
+            board[col, row] = "";
+            board[col + 1, row] = currentPlayer.pieces[0].pieceColor;
+            printToConsole.PrintBoardToConsole(board);
         }
     }
 }
