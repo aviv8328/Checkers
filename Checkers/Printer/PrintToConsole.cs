@@ -13,15 +13,25 @@ namespace CheckersHafifa
         }
         public void PrintBoardToConsole(string[,] board)
         {
-            Console.WriteLine("Matrix:");
             for (int r = 0; r < board.GetLength(0); r++)
             {
                 for (int c = 0; c < board.GetLength(1); c++)
                 {
-                    Console.WriteLine($"cell: {r},{c}: {board[r,c]}");
+                    Console.BackgroundColor = GetBackgroundColorOfSquare(r, c);
+                    Console.ForegroundColor = Console.BackgroundColor == ConsoleColor.White 
+                        ? ConsoleColor.Black 
+                        : ConsoleColor.White;
+                    
+                    Console.Write(" " + board[r, c] + " ");
+                    Console.ResetColor();
                 }
                 Console.WriteLine();
             }
+        }
+
+        public ConsoleColor GetBackgroundColorOfSquare(int row, int col)
+        {
+            return (row + col) % 2 == 0 ? ConsoleColor.White : ConsoleColor.Black;
         }
     }
 }
