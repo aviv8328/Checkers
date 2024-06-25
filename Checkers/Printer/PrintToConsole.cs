@@ -58,5 +58,10 @@ namespace CheckersHafifa
         {
             Console.WriteLine("INVALID input! the format must be ROW,COL, eg. 0,0");
         }
+
+        public void PromptExit()
+        {
+            Console.WriteLine("1: Exit, 2: Continue playing");
+        }
     }
 }
