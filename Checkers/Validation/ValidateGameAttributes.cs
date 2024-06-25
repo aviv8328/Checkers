@@ -6,7 +6,7 @@ namespace CheckersHafifa
     public class ValidateGameAttributes : IValidate
     {
         PrintToConsole printToConsole = new();
-        private int GetBoardSize()
+        private int GetConsoleBoardSize()
         {
             int boardSize;
 
@@ -30,13 +30,13 @@ namespace CheckersHafifa
             }
         }
 
-        public int ReturnValidBoardSize()
+        public int ReturnValidBoardSizeConsole()
         {
             int boardSize;
             
             do
             {
-                boardSize = GetBoardSize();
+                boardSize = GetConsoleBoardSize();
             }
             while (!ValidateBoardSize(boardSize));
 
