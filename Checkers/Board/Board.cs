@@ -43,15 +43,10 @@ namespace CheckersHafifa
                 ChooseRowsToPopulate(board, player);
             }
 
-        Console.WriteLine("Matrix:");
-        for (int r = 0; r < board.GetLength(0); r++)
-        {
-            for (int c = 0; c < board.GetLength(1); c++)
-            {
-                Console.WriteLine($"cell: {r},{c}: {board[r,c]}");
-            }
-            Console.WriteLine();
-        }
+            // TODO: Remove print to console its testy
+            PrintToConsole printToConsole = new();
+            printToConsole.PrintBoardToConsole(board);
+       
         }
 
         private void ChooseRowsToPopulate(string[,] board, Player player)
@@ -98,7 +93,7 @@ namespace CheckersHafifa
             }
         }
 
-        public void StartGame()
+        public void InitializeGame()
         {
             CreateBoard();
             GeneratePlayers();
