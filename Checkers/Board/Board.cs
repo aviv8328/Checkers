@@ -40,21 +40,44 @@ namespace CheckersHafifa
 
             foreach (Player player in players)
             {
-                AlternateRowPopulating(board, player);
+                ChooseRowsToPopulate(board, player);
             }
+
+        Console.WriteLine("Matrix:");
+        for (int r = 0; r < board.GetLength(0); r++)
+        {
+            for (int c = 0; c < board.GetLength(1); c++)
+            {
+                Console.WriteLine($"cell: {r},{c}: {board[r,c]}");
+            }
+            Console.WriteLine();
+        }
         }
 
-        private void AlternateRowPopulating(string[,] board, Player player)
+        private void ChooseRowsToPopulate(string[,] board, Player player)
         {
-            for (int i = 0; i < 3; i++)
+            if (player == players[0])
             {
-                if (i % 2 == 0)
+                AlternateRowPopulating(board, player, 0);
+            }
+            else
+            {
+                AlternateRowPopulating(board, player, board.GetLength(1) - 3);
+            }
+        }
+        private void AlternateRowPopulating(string[,] board, Player player, int colIndex)
+        {
+            // TODO: length (3) extract to constants file as NUMBER_OF_ROWS_TO_POPULATE
+            int maxColIndex = colIndex + 3;
+            for (; colIndex < maxColIndex; colIndex++)
+            {
+                if (colIndex % 2 == 0)
                 {
-                    PopulateEvenRows(i, player, board);
+                    PopulateEvenRows(colIndex, player, board);
                 }
                 else
                 {
-                    PopulateNegativeRows(i, player, board);
+                    PopulateNegativeRows(colIndex, player, board);
                 }
             }
         }
