@@ -1,6 +1,3 @@
-using System.IO.Compression;
-using System.Runtime.ConstrainedExecution;
-
 namespace CheckersHafifa
 {
     public class Board // : IBoard
