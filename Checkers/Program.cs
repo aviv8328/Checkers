@@ -5,6 +5,8 @@
         public static void Main(string[] args)
         {
             Board board = new();
+            board.GeneratePlayers();
+
         }
     }
 }

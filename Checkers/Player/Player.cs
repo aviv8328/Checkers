@@ -4,7 +4,7 @@ namespace CheckersHafifa
     {
         public string playerName { get; }
 
-        public List<Piece> pieces { get; }
+        public List<Piece> pieces = new List<Piece>();
 
         public Player(string name, int boardSize, string pieceColor)
         {
@@ -27,7 +27,7 @@ namespace CheckersHafifa
             else
             {
                 WhitePieceFactory whitePieceFactory = new();
-                whitePieceFactory.CreatePiece();
+                pieces.Add(whitePieceFactory.CreatePiece());
             }
         }
 
