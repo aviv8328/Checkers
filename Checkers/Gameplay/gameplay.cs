@@ -32,25 +32,25 @@ namespace CheckersHafifa
             printToConsole.PromptPieceToMove();
 
             string playerMoveChoice = Console.ReadLine();
-            int col = validateTurns.ParseColPlayerMove(playerMoveChoice);
-            int row = validateTurns.ParseRowPlayerMove(playerMoveChoice);
 
             try
             {
-                if (!validateTurns.ValidateChosenPiece(playerMoveChoice, board, currentPlayer.pieces[0].pieceColor));
-                if (validateTurns.ValidateMoveForward(playerMoveChoice, board))
+                if (!validateTurns.ValidateChosenPiece(playerMoveChoice, board, currentPlayer.pieces[0].pieceColor))
                 {
+                    printToConsole.PromptInvalidInput();   
+                }
+                else if (validateTurns.ValidateMoveForward(playerMoveChoice, board))
+                {
+                    int col = validateTurns.ParseColPlayerMove(playerMoveChoice);
+                    int row = validateTurns.ParseRowPlayerMove(playerMoveChoice);
                     // TODO: move forward validation
                     MoveForward(currentPlayer, board, printToConsole, col, row);
                 }
-
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
             }
-
-
         }
 
         private void MoveForward(Player currentPlayer, string[,] board, PrintToConsole printToConsole, int col, int row)

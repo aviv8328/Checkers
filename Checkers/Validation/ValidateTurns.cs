@@ -9,6 +9,10 @@ namespace CheckersHafifa
         }
         private bool ValidateString(string playerMove)
         {
+            if (!playerMove.Contains(','))
+            {
+                return false;
+            }
             string[] playerMoveSplitted = playerMove.Split(",");
             return int.TryParse(playerMoveSplitted[0], out _) && int.TryParse(playerMoveSplitted[0], out _);
         }
