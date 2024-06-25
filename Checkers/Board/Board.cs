@@ -1,3 +1,5 @@
+using System.IO.Compression;
+
 namespace CheckersHafifa
 {
     public class Board : IBoard
@@ -28,6 +30,11 @@ namespace CheckersHafifa
             // TODO: make it dynamic
             players[0] = new Player("ju", _boardSize, "W");
             players[1] = new Player("bb", _boardSize, "B");
+        }
+
+        private void PopulateBoard()
+        {
+            
         }
     }
 }
