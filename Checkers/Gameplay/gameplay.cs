@@ -44,7 +44,9 @@ namespace CheckersHafifa
                     int col = validateTurns.ParseColPlayerMove(playerMoveChoice);
                     int row = validateTurns.ParseRowPlayerMove(playerMoveChoice);
                     // TODO: move forward validation
-                    MoveForward(currentPlayer, board, printToConsole, col, row);
+                    // EatDiagnalLeft(currentPlayer, board, printToConsole, col, row);
+                    // EatDiagnalRight(currentPlayer, board, printToConsole, col, row);
+                    // MoveForward(currentPlayer, board, printToConsole, col, row);
                 }
             }
             catch (Exception e)
@@ -64,15 +66,19 @@ namespace CheckersHafifa
 
         private void EatDiagnalLeft(Player currentPlayer, string[,] board, PrintToConsole printToConsole, int col, int row)
         {
+            printToConsole.PromptEatPiece();
+
             board[col, row] = "";
-            board[col + 2, row - 1] = currentPlayer.pieces[0].pieceColor;
+            board[col + 2, row - 2] = currentPlayer.pieces[0].pieceColor;
             printToConsole.PrintBoardToConsole(board);
         }
 
         private void EatDiagnalRight(Player currentPlayer, string[,] board, PrintToConsole printToConsole, int col, int row)
         {
+            printToConsole.PromptEatPiece();
+
             board[col, row] = "";
-            board[col + 2, row - 1] = currentPlayer.pieces[0].pieceColor;
+            board[col + 2, row + 2] = currentPlayer.pieces[0].pieceColor;
             printToConsole.PrintBoardToConsole(board);
         }
     }
