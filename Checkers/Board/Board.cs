@@ -1,5 +1,6 @@
 namespace CheckersHafifa
 {
+    //TODO: Change board from string[,] --> Piece[,].
     public class Board // : IBoard
     {
         // TODO: magic number to user variable
