@@ -39,17 +39,18 @@ namespace CheckersHafifa
                 {
                     printToConsole.PromptInvalidInput();   
                 }
-                else if (validateTurns.ValidateMoveForward(playerMoveChoice, board))
+                else if (validateTurns.ValidateEatDiagnalLeft(playerMoveChoice, board, currentPlayer.pieces[0].pieceColor))
                 {
                     int col = validateTurns.ParseColPlayerMove(playerMoveChoice);
                     int row = validateTurns.ParseRowPlayerMove(playerMoveChoice);
+                    
                     // TODO: move forward validation
-                    // EatDiagnalLeft(currentPlayer, board, printToConsole, col, row);
+                    EatDiagnalLeft(currentPlayer, board, printToConsole, col, row);
                     // EatDiagnalRight(currentPlayer, board, printToConsole, col, row);
                     // MoveForward(currentPlayer, board, printToConsole, col, row);
                 }
             }
-            catch (Exception e)
+            catch (IndexOutOfRangeException e)
             {
                 Console.WriteLine(e.Message);
             }

@@ -5,7 +5,8 @@ namespace CheckersHafifa
 
         public bool ValidateChosenPiece(string playerMove, string[,] board, string currentPlayerColor)
         {
-            return ValidateString(playerMove) && board[ParseColPlayerMove(playerMove), ParseRowPlayerMove(playerMove)] == currentPlayerColor;
+            Console.WriteLine( ValidateString(playerMove) && board[ParseColPlayerMove(playerMove), ParseRowPlayerMove(playerMove)] == currentPlayerColor);
+            return  ValidateString(playerMove) && board[ParseColPlayerMove(playerMove), ParseRowPlayerMove(playerMove)] == currentPlayerColor;
         }
         private bool ValidateString(string playerMove)
         {
@@ -49,6 +50,27 @@ namespace CheckersHafifa
         }
 
         public bool ValidateMoveForward(string playerMove, string[,] board)
+        {
+            int col = ParseColPlayerMove(playerMove);
+            int row = ParseRowPlayerMove(playerMove);
+
+            return board[col + 1, row] == null && col + 1 < board.GetLength(1);
+        }
+        public bool ValidateEatDiagnalLeft(string playerMove, string[,] board, string pieceColor)
+        {
+
+            int col = ParseColPlayerMove(playerMove);
+            int row = ParseRowPlayerMove(playerMove);
+
+            if (col + 1  < 0 || row - 1 < 0 || col + 1 > board.GetLength(1))
+            {
+                return false;
+            }
+            // TODO: Find a more elegant way for the conditions
+            return board[col + 1, row - 1] != pieceColor && board[col + 1, row - 1] != null ;
+            //&& col + 2 < board.GetLength(1) && row - 2 < board.GetLength(0) && board[col + 2, row - 2] == null
+        }
+        public bool ValidateEatDiagnalRight(string playerMove, string[,] board)
         {
             int col = ParseColPlayerMove(playerMove);
             int row = ParseRowPlayerMove(playerMove);
