@@ -4,117 +4,62 @@ namespace CheckersHafifa
     public class Board : IBoard
     {
         // TODO: magic number to user variable
-        public Piece[,] board;
-        public Player[] players;
+        public IPiece[,] board;
+        private IPlayer[] _players;
         private int _boardSize;
+
         public Board(int boardSize)
         {
             _boardSize = boardSize;   
-        }
-        public Board()
-        {
-            ValidateGameAttributes validateGameAttributes = new();
-            PrintToConsole printToConsole = new();
-
-            printToConsole.GetBoardSize();
-            _boardSize = validateGameAttributes.ReturnValidBoardSizeConsole();
-        }
-        private string[,] CreateBoard()
-        {
-            return new string[_boardSize,_boardSize];
+            board = new IPiece[boardSize, boardSize];
         }
 
-
-        // TODO: Create 2 equal boards one for the black and one for the white side
-
-        // private string[,] CreateBlackBoard()
-        // {
-        //     return new string[_boardSize,_boardSize];
-        // }
-        // private string[,] CreateWhiteBoard()
-        // {
-        //     return new string[_boardSize,_boardSize];
-        // }
-        
-        public void GeneratePlayers()
+        public void InitializeBoard(IPlayer[] players)
         {
-            // TODO: make it dynamic
-            players[0] = new Player("ju", _boardSize, "W");
-            players[1] = new Player("bb", _boardSize, "B");
+            _players = players;
+            PopulateBoard();
         }
 
-        private string[,] PopulateBoard()
+        private void PopulateBoard()
         {
-            // TODO: make current col dynamic
-            string[,] board = CreateBoard();
+            int rowsToPopulate = (_boardSize / 2)  - 1;
 
-            foreach (Player player in players)
+            for (int i = 0; i < rowsToPopulate; i++)
             {
-                ChooseRowsToPopulate(board, player);
-            }
-
-            // TODO: Remove print to console its testy
-            PrintToConsole printToConsole = new();
-            printToConsole.PrintBoardToConsole(board);
-
-            return board;       
-        }
-
-        private void ChooseRowsToPopulate(string[,] board, Player player)
-        {
-            if (player == players[0])
-            {
-                AlternateRowPopulating(board, player, 0);
-            }
-            else
-            {
-                AlternateRowPopulating(board, player, board.GetLength(1) - 3);
-            }
-        }
-        private void AlternateRowPopulating(string[,] board, Player player, int colIndex)
-        {
-            // TODO: length (3) extract to constants file as NUMBER_OF_ROWS_TO_POPULATE
-            int maxColIndex = colIndex + 3;
-            for (; colIndex < maxColIndex; colIndex++)
-            {
-                if (colIndex % 2 == 0)
+                for (int j = 0; j < _boardSize; j++)
                 {
-                    PopulateEvenRows(colIndex, player, board);
-                }
-                else
-                {
-                    PopulateNegativeRows(colIndex, player, board);
+                    if ((i + j) % 2 == 1)
+                    {
+                        board[i, j] = _players[0].Pieces[(i * _boardSize + j) / 2];
+                        board[_boardSize - 1 - i, j] = _players[1].Pieces[(i * _boardSize + j) / 2];
+                    }
                 }
             }
         }
 
-        private void PopulateEvenRows(int currentCol, Player player, string[,] board)
+        public void Display()
         {
-            for (int i = 1; i < board.GetLength(0); i = i + 2)
+            PrintToConsole printToConsole = new();
+
+            printToConsole.PrintBoardToConsole(board, _boardSize);
+            
+        }
+
+        public bool MovePiece(IPlayer player, int startX, int startY, int endX, int endY)
+        {
+            if (ValidateMove(player, startX, startY, endX, endY))
             {
-                board[currentCol, i] = player.pieces[currentCol].pieceColor;
+                board[endX, endY] = board[startX, startY];
+                board[startX, startY] = null;
+                return true;
             }
+            return false;
         }
 
-        private void PopulateNegativeRows(int currentCol, Player player, string[,] board)
+        private bool ValidateMove(IPlayer player, int startX, int startY, int endX, int endY)
         {
-            for (int i = 0; i < board.GetLength(1); i = i + 2)
-            {
-                board[currentCol, i] = player.pieces[currentCol].pieceColor;
-            }
-        }
-
-        private string[,] InitializeGame()
-        {
-            CreateBoard();
-            GeneratePlayers();
-            return PopulateBoard();
-        }
-
-        public void StartGame()
-        {
-            Gameplay gameplay = new();
-            gameplay.StartGame(players, InitializeGame());
+            // Implement move validation logic based on checkers rules
+            return true;
         }
     }
 }

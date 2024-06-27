@@ -11,7 +11,7 @@ namespace CheckersHafifa
         {
             Console.WriteLine("Invalid Size! Size must be a valid positive number higher than 8!");
         }
-        public void PrintBoardToConsole(string[,] board)
+        public void PrintBoardToConsole(IPiece[,] board, int boardSize)
         {
             for (int r = 0; r < board.GetLength(0); r++)
             {
@@ -36,7 +36,7 @@ namespace CheckersHafifa
 
         public void PrintCurrentPlayerTurnToConsole(Player player)
         {
-            Console.WriteLine($"It's {player.playerName} turn!");
+            Console.WriteLine($"It's {player.Name} turn!");
         }
 
         public void PromptPieceToMove()
