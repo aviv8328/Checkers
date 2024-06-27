@@ -3,6 +3,6 @@ namespace CheckersHafifa
     public interface IPlayer 
     {
         string Name { get; }
-        List<IPieceFactory>
+        List<IPiece> Pieces { get; }
     }
 }
