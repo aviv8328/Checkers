@@ -4,6 +4,8 @@ namespace CheckersHafifa
 {
     interface IBoard 
     {
-        public string[,] CreateBoard();
+        void Initialize();
+        void Display();
+        bool MovePiece(Player player, int startX, int startY, int endX, int endY);
     }
 }

@@ -1,10 +1,11 @@
 namespace CheckersHafifa
 {
     //TODO: Change board from string[,] --> Piece[,].
-    public class Board // : IBoard
+    public class Board : IBoard
     {
         // TODO: magic number to user variable
-        public Player[] players = new Player[2];
+        public Piece[,] board;
+        public Player[] players;
         private int _boardSize;
         public Board(int boardSize)
         {
