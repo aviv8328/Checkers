@@ -1,13 +1,13 @@
 namespace CheckersHafifa
 {
-    public class Piece
+    public class Piece : IPiece
     {
-        public string pieceColor { get; }
-        public bool isAlive {get; set;}
+        public string PieceColor { get; }
+        public bool IsAlive {get; set;}
         public Piece(string color)
         {
-            isAlive = true;
-            pieceColor = color;
+            IsAlive = true;
+            PieceColor = color;
         }
     }
 }
