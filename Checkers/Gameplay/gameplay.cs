@@ -4,7 +4,7 @@ namespace CheckersHafifa
 {
     public class Gameplay()
     {
-        public void StartGame(Player[] players, string[,] board)
+        public void StartGame(Player[] players, Piece[,] board)
         {
             PrintToConsole printToConsole = new();
             while (true)
