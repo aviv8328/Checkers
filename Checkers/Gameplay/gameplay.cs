@@ -65,11 +65,6 @@ namespace CheckersHafifa
             }
         }
 
-        private void GetPlayerActionChoice()
-        {
-
-        }
-
         private void PromptPlayerUponPieceValidActions(Piece[,] board, Player currentPlayer)
         {
             // TODO: MOVE PIECE ACTIONS TO A CONST FILE
