@@ -30,6 +30,43 @@ namespace CheckersHafifa
             }
         }
 
+        private int GetConsolePlayerAction()
+        {
+            int playerAction;
+
+            while (!int.TryParse(Console.ReadLine(), out playerAction))
+            {
+                printToConsole.InvalidSize();
+            };
+
+            return playerAction;
+        }
+
+        public int ReturnConsolePlayerAction()
+        {
+            int playerAction;
+            
+            do
+            {
+                playerAction = GetConsolePlayerAction();
+            }
+            while (!ValidatePlayerAction(playerAction));
+
+            return playerAction;
+        }
+        public bool ValidatePlayerAction(int playerAction)
+        {
+            if (playerAction == 1 || playerAction == 2 || playerAction == 3)
+            {
+                return true;
+            }
+            else
+            {
+                printToConsole.InvalidAction();
+                return false;
+            }
+        }
+
         public int ReturnValidBoardSizeConsole()
         {
             int boardSize;

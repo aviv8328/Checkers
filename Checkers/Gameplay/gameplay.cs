@@ -8,6 +8,7 @@ namespace CheckersHafifa
         ValidateTurns validateTurns = new();
         PrintToConsole printToConsole = new();
 
+        ValidateGameAttributes validateGameAttributes = new();
 
         public void StartGame(Player[] players, Piece[,] board)
         {
@@ -55,6 +56,7 @@ namespace CheckersHafifa
                 }
 
                 PromptPlayerUponPieceValidActions(board, currentPlayer);
+                int playerAction = validateGameAttributes.ReturnConsolePlayerAction();
 
             }
             catch (Exception e)
@@ -63,10 +65,15 @@ namespace CheckersHafifa
             }
         }
 
+        private void GetPlayerActionChoice()
+        {
+
+        }
+
         private void PromptPlayerUponPieceValidActions(Piece[,] board, Player currentPlayer)
         {
             // TODO: MOVE PIECE ACTIONS TO A CONST FILE
-            
+
             var pieceActions = new Dictionary<Func<Piece[,], Player, bool>, string>
             {
                 { validateTurns.ValidateEatLeftDiagonal, "To eat left press 1" },

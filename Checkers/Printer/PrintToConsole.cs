@@ -16,6 +16,11 @@ namespace CheckersHafifa
         {
             Console.WriteLine("Invalid Size! Size must be a valid positive number higher than 8!");
         }
+
+        public void InvalidAction()
+        {
+            Console.WriteLine("Invalid Action! Choose a number between 1-3!");
+        }
         public void PrintBoardToConsole(Piece[,] board)
         {
             for (int r = 0; r < board.GetLength(0); r++)
