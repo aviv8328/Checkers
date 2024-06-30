@@ -2,10 +2,17 @@ namespace CheckersHafifa
 {
     public class ValidateTurns()
     {
+        int playerCol;
+        int playerRow;
 
         public bool ValidateChosenPiece(string playerMove, Piece[,] board, string pieceColor)
         {
-            return ValidateString(playerMove) && ValidateCurrentPlayerPiece(playerMove, board, pieceColor);
+            if (ValidateString(playerMove) && ValidateCurrentPlayerPiece(playerMove, board, pieceColor))
+            {
+
+                return true;
+            }
+            return false;
         }
         private bool ValidateString(string playerMove)
         {
@@ -13,29 +20,28 @@ namespace CheckersHafifa
             {
                 return false;
             }
+
+            ParsePlayerMoves parsePlayerMoves = new();
+            playerCol = parsePlayerMoves.ParseColPlayerMove(playerMove);
+            playerRow = parsePlayerMoves.ParseRowPlayerMove(playerMove);
+            
             string[] playerMoveSplitted = playerMove.Split(",");
             return int.TryParse(playerMoveSplitted[0], out _) && int.TryParse(playerMoveSplitted[0], out _);
         }
 
         private bool ValidateCurrentPlayerPiece(string playerMove, Piece[,] board, string pieceColor)
         {
-            return board[ParseColPlayerMove(playerMove), ParseRowPlayerMove(playerMove)].pieceColor == pieceColor;
+            return board[playerCol, playerRow].pieceColor == pieceColor;
         }
 
         public bool ValidateMoveForward(string playerMove, Piece[,] board)
         {
-            int col = ParseColPlayerMove(playerMove);
-            int row = ParseRowPlayerMove(playerMove);
-
-            return board[col, row + 1] == null && row + 1 < board.GetLength(0);
+            return board[playerCol, playerRow + 1] == null && playerRow + 1 < board.GetLength(0);
         }
 
         public bool ValidateEatLeftDiagonal(string playerMove, Piece[,] board, Player currentPlayer)
         {
-            int col = ParseColPlayerMove(playerMove);
-            int row = ParseRowPlayerMove(playerMove);
-
-            return CheckDiagonalLeftPiece(col, row, board, currentPlayer) && ValidateDiagonalLeftRanges(board, col, row);
+            return CheckDiagonalLeftPiece(playerCol, playerRow, board, currentPlayer) && ValidateDiagonalLeftRanges(board, playerCol, playerRow);
         }
 
         private static bool ValidateDiagonalLeftRanges(Piece[,] board, int col, int row)
@@ -50,10 +56,7 @@ namespace CheckersHafifa
 
         public bool ValidateEatRightDiagonal(string playerMove, Piece[,] board, Player currentPlayer)
         {
-            int col = ParseColPlayerMove(playerMove);
-            int row = ParseRowPlayerMove(playerMove);
-
-            return CheckDiagonalRightPiece(col, row, board, currentPlayer) && ValidateDiagonalRightRanges(board, col, row);
+            return CheckDiagonalRightPiece(playerCol, playerRow, board, currentPlayer) && ValidateDiagonalRightRanges(board, playerCol, playerRow);
         }
 
         private static bool ValidateDiagonalRightRanges(Piece[,] board, int col, int row)
@@ -65,48 +68,5 @@ namespace CheckersHafifa
         {
             return board[col + 1, row + 1] != null || board[col + 1, row + 1].pieceColor != currentPlayer.pieces[0].pieceColor;
         }
-
-        // public bool ValidateEatRightDiagonal(string playerMove, Piece[,] board)
-        // {
-        //     int col = ParseColPlayerMove(playerMove);
-        //     int row = ParseRowPlayerMove(playerMove);
-
-        //     return board[col + 1, row] == null && col + 1 < board.GetLength(1);
-        // }
-
-
-        // TODO: Parse row/col dynamically instead of redundant code
-        public int ParseRowPlayerMove(string playerMove)
-        {
-            PrintToConsole printToConsole = new();
-            string[] playerMoveSplitted = playerMove.Split(',');
-            
-            if (int.TryParse(playerMoveSplitted[0], out int row))
-            {
-                return row;
-            }
-            else
-            {
-                printToConsole.PromptInvalidInput();    
-                return -1;
-            }
-        }
-        public int ParseColPlayerMove(string playerMove)
-        {
-            PrintToConsole printToConsole = new();
-            string[] playerMoveSplitted = playerMove.Split(',');
-            
-            if (int.TryParse(playerMoveSplitted[1], out int col))
-            {
-                return col;
-            }
-            else
-            {
-                printToConsole.PromptInvalidInput();    
-                return -1;
-            }
-        }
-
-
     }
 }
