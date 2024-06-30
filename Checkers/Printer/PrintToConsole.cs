@@ -75,5 +75,15 @@ namespace CheckersHafifa
         {
             Console.WriteLine("1: Exit, 2: Continue playing");
         }
+
+        public void PromptNoValidMovesAvailable()
+        {
+            Console.WriteLine("No valid moves available");  
+        }
+
+        public void PrintCurrentAction(string currentAction)
+        {
+            Console.WriteLine(currentAction);
+        }
     }
 }

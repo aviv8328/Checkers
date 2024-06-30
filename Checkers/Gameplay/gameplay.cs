@@ -65,7 +65,8 @@ namespace CheckersHafifa
 
         private void PromptPlayerUponPieceValidActions(Piece[,] board, Player currentPlayer)
         {
-
+            // TODO: MOVE PIECE ACTIONS TO A CONST FILE
+            
             var pieceActions = new Dictionary<Func<Piece[,], Player, bool>, string>
             {
                 { validateTurns.ValidateEatLeftDiagonal, "To eat left press 1" },
@@ -85,13 +86,13 @@ namespace CheckersHafifa
 
             if (pieceValidActions.Count == 0)
             {
-                Console.WriteLine("No valid moves available");
+                printToConsole.PromptNoValidMovesAvailable();
             }
             else
             {
                 foreach (var action in pieceValidActions)
                 {
-                    Console.WriteLine(action);
+                    printToConsole.PrintCurrentAction(action);
                 }
             }
         }
