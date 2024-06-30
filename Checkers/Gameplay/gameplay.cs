@@ -5,6 +5,10 @@ namespace CheckersHafifa
     public class Gameplay()
     {
         bool firstPlayer = true;
+        ValidateTurns validateTurns = new();
+        PrintToConsole printToConsole = new();
+
+
         public void StartGame(Player[] players, Piece[,] board)
         {
             while (true)
@@ -41,8 +45,6 @@ namespace CheckersHafifa
             // Get user input in different ways rather than console.readline
             // Place parse row + col in different file
 
-            ValidateTurns validateTurns = new();
-            PrintToConsole printToConsole = new();
 
             string playerMoveChoice = Console.ReadLine();
             try
@@ -52,24 +54,45 @@ namespace CheckersHafifa
                     printToConsole.PromptInvalidInput();   
                 }
 
+                PromptPlayerUponPieceValidActions(board, currentPlayer);
 
-                Console.WriteLine(validateTurns.ValidateEatLeftDiagonal(board, currentPlayer));
-                Console.WriteLine(validateTurns.ValidateEatRightDiagonal(board, currentPlayer));
-                Console.WriteLine(validateTurns.ValidateMoveForward(board));
-
-                // else if (validateTurns.ValidateMoveForward(playerMoveChoice, board))
-                // {
-                //     int col = validateTurns.ParseColPlayerMove(playerMoveChoice);
-                //     int row = validateTurns.ParseRowPlayerMove(playerMoveChoice);
-                //     // TODO: move forward validation
-                //     // EatDiagnalLeft(currentPlayer, board, printToConsole, col, row);
-                //     // EatDiagnalRight(currentPlayer, board, printToConsole, col, row);
-                //     MoveForward(currentPlayer, board, printToConsole, col, row);
-                // }
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
+            }
+        }
+
+        private void PromptPlayerUponPieceValidActions(Piece[,] board, Player currentPlayer)
+        {
+
+            var pieceActions = new Dictionary<Func<Piece[,], Player, bool>, string>
+            {
+                { validateTurns.ValidateEatLeftDiagonal, "To eat left press 1" },
+                { validateTurns.ValidateEatRightDiagonal, "To eat right press 2" },
+                { validateTurns.ValidateMoveForward, "To move forward press 3" }
+            };
+
+            List<String> pieceValidActions = new List<string>();
+
+            foreach (var action in pieceActions)
+            {
+                if (action.Key(board, currentPlayer))
+                {
+                    pieceValidActions.Add(action.Value);
+                }
+            }
+
+            if (pieceValidActions.Count == 0)
+            {
+                Console.WriteLine("No valid moves available");
+            }
+            else
+            {
+                foreach (var action in pieceValidActions)
+                {
+                    Console.WriteLine(action);
+                }
             }
         }
 

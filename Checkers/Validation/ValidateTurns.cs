@@ -33,7 +33,7 @@ namespace CheckersHafifa
             return board[playerRow, playerCol].pieceColor == pieceColor;
         }
 
-        public bool ValidateMoveForward(Piece[,] board)
+        public bool ValidateMoveForward(Piece[,] board, Player currentPlayer)
         {
             return board[playerRow, playerCol + 1] == null && playerRow + 1 < board.GetLength(0);
         }
