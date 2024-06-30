@@ -7,6 +7,11 @@ namespace CheckersHafifa
             Console.WriteLine("Enter your desired board size, size must be a positive number >= 8!");
         }
 
+        public void PromptCurrentPlayerToConsole(Player currentPlayer)
+        {
+            Console.WriteLine(currentPlayer.playerName);
+        }
+
         public void InvalidSize()
         {
             Console.WriteLine("Invalid Size! Size must be a valid positive number higher than 8!");

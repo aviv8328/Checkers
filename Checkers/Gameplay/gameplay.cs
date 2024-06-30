@@ -4,19 +4,34 @@ namespace CheckersHafifa
 {
     public class Gameplay()
     {
+        bool firstPlayer = true;
         public void StartGame(Player[] players, Piece[,] board)
         {
-            PrintToConsole printToConsole = new();
             while (true)
             {
-                // PromptCurrentPlayer(players[0], board);
-                printToConsole.PromptExit();
+                PrintToConsole printToConsole = new();
+                printToConsole.PromptCurrentPlayerToConsole(ReturnCurrentPlayer(players));
 
                 int.TryParse(Console.ReadLine(), out int keepPlaying);
                 if (keepPlaying == 1)
                 {
                     break;   
                 }
+                printToConsole.PromptExit();
+            }
+        }
+
+        private Player ReturnCurrentPlayer(Player[] players)
+        {
+            if (firstPlayer)
+            {
+                firstPlayer = false;
+                return players[0];
+            }
+            else
+            {
+                firstPlayer = true;
+                return players[1];
             }
         }
     //     public void PromptCurrentPlayer(Player currentPlayer, Piece[,] board)
