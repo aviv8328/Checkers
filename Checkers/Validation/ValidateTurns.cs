@@ -27,7 +27,7 @@ namespace CheckersHafifa
             int col = ParseColPlayerMove(playerMove);
             int row = ParseRowPlayerMove(playerMove);
 
-            return board[col + 1, row] == null && col + 1 < board.GetLength(1);
+            return board[col, row + 1] == null && row + 1 < board.GetLength(0);
         }
 
         public bool ValidateEatLeftDiagonal(string playerMove, Piece[,] board, Player currentPlayer)
@@ -35,10 +35,10 @@ namespace CheckersHafifa
             int col = ParseColPlayerMove(playerMove);
             int row = ParseRowPlayerMove(playerMove);
 
-            return CheckDiagonalLeftPiece(col, row, board, currentPlayer) && ValidateRanges(board, col, row);
+            return CheckDiagonalLeftPiece(col, row, board, currentPlayer) && ValidateDiagonalLeftRanges(board, col, row);
         }
 
-        private static bool ValidateRanges(Piece[,] board, int col, int row)
+        private static bool ValidateDiagonalLeftRanges(Piece[,] board, int col, int row)
         {
             return col - 1 <= board.GetLength(1) && row + 1 <= board.GetLength(0);
         }
@@ -46,6 +46,24 @@ namespace CheckersHafifa
         private bool CheckDiagonalLeftPiece(int col, int row, Piece[,] board, Player currentPlayer)
         {
             return board[col - 1, row + 1] != null || board[col - 1, row + 1].pieceColor != currentPlayer.pieces[0].pieceColor;
+        }
+
+        public bool ValidateEatRightDiagonal(string playerMove, Piece[,] board, Player currentPlayer)
+        {
+            int col = ParseColPlayerMove(playerMove);
+            int row = ParseRowPlayerMove(playerMove);
+
+            return CheckDiagonalRightPiece(col, row, board, currentPlayer) && ValidateDiagonalRightRanges(board, col, row);
+        }
+
+        private static bool ValidateDiagonalRightRanges(Piece[,] board, int col, int row)
+        {
+            return col + 1 <= board.GetLength(1) && row + 1 <= board.GetLength(0);
+        }
+
+        private bool CheckDiagonalRightPiece(int col, int row, Piece[,] board, Player currentPlayer)
+        {
+            return board[col + 1, row + 1] != null || board[col + 1, row + 1].pieceColor != currentPlayer.pieces[0].pieceColor;
         }
 
         // public bool ValidateEatRightDiagonal(string playerMove, Piece[,] board)
