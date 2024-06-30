@@ -46,7 +46,7 @@ namespace CheckersHafifa
                     // TODO: move forward validation
                     // EatDiagnalLeft(currentPlayer, board, printToConsole, col, row);
                     // EatDiagnalRight(currentPlayer, board, printToConsole, col, row);
-                    // MoveForward(currentPlayer, board, printToConsole, col, row);
+                    MoveForward(currentPlayer, board, printToConsole, col, row);
                 }
             }
             catch (Exception e)
