@@ -9,9 +9,12 @@ namespace CheckersHafifa
         {
             while (true)
             {
+                Player currentPlayer = ReturnCurrentPlayer(players);
                 PrintToConsole printToConsole = new();
-                printToConsole.PromptCurrentPlayerToConsole(ReturnCurrentPlayer(players));
+                printToConsole.PromptCurrentPlayerToConsole(currentPlayer);
+                printToConsole.PromptPieceToMove();
 
+                PromptCurrentPlayer(board, currentPlayer);
                 int.TryParse(Console.ReadLine(), out int keepPlaying);
                 if (keepPlaying == 1)
                 {
@@ -25,50 +28,46 @@ namespace CheckersHafifa
         {
             if (firstPlayer)
             {
-                firstPlayer = false;
                 return players[0];
             }
             else
             {
-                firstPlayer = true;
                 return players[1];
             }
         }
-    //     public void PromptCurrentPlayer(Player currentPlayer, Piece[,] board)
-    //     {
-    //         //TODO :
-    //         // Get user input in different ways rather than console.readline
-    //         // Place parse row + col in different file
+        public void PromptCurrentPlayer(Piece[,] board, Player currentPlayer)
+        {
+            //TODO :
+            // Get user input in different ways rather than console.readline
+            // Place parse row + col in different file
 
-    //         PrintToConsole printToConsole = new();
-    //         ValidateTurns validateTurns = new();
+            ValidateTurns validateTurns = new();
+            PrintToConsole printToConsole = new();
 
-    //         printToConsole.PrintCurrentPlayerTurnToConsole(currentPlayer);
-    //         printToConsole.PromptPieceToMove();
+            string playerMoveChoice = Console.ReadLine();
+            try
+            {
+                if (!validateTurns.ValidateChosenPiece(playerMoveChoice, board, currentPlayer.pieces[0].pieceColor))
+                {
+                    printToConsole.PromptInvalidInput();   
+                }
 
-    //         string playerMoveChoice = Console.ReadLine();
-
-    //         try
-    //         {
-    //             if (!validateTurns.ValidateChosenPiece(playerMoveChoice, board, currentPlayer.pieces[0].pieceColor))
-    //             {
-    //                 printToConsole.PromptInvalidInput();   
-    //             }
-    //             else if (validateTurns.ValidateMoveForward(playerMoveChoice, board))
-    //             {
-    //                 int col = validateTurns.ParseColPlayerMove(playerMoveChoice);
-    //                 int row = validateTurns.ParseRowPlayerMove(playerMoveChoice);
-    //                 // TODO: move forward validation
-    //                 // EatDiagnalLeft(currentPlayer, board, printToConsole, col, row);
-    //                 // EatDiagnalRight(currentPlayer, board, printToConsole, col, row);
-    //                 MoveForward(currentPlayer, board, printToConsole, col, row);
-    //             }
-    //         }
-    //         catch (Exception e)
-    //         {
-    //             Console.WriteLine(e.Message);
-    //         }
-    //     }
+                validateTurns.ValidateEatLeftDiagonal(playerMoveChoice, board, currentPlayer);
+                // else if (validateTurns.ValidateMoveForward(playerMoveChoice, board))
+                // {
+                //     int col = validateTurns.ParseColPlayerMove(playerMoveChoice);
+                //     int row = validateTurns.ParseRowPlayerMove(playerMoveChoice);
+                //     // TODO: move forward validation
+                //     // EatDiagnalLeft(currentPlayer, board, printToConsole, col, row);
+                //     // EatDiagnalRight(currentPlayer, board, printToConsole, col, row);
+                //     MoveForward(currentPlayer, board, printToConsole, col, row);
+                // }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
 
     //     private void MoveForward(Player currentPlayer, string[,] board, PrintToConsole printToConsole, int col, int row)
     //     {
