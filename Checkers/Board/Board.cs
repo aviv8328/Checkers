@@ -18,9 +18,9 @@ namespace CheckersHafifa
             printToConsole.GetBoardSize();
             _boardSize = validateGameAttributes.ReturnValidBoardSizeConsole();
         }
-        private string[,] CreateBoard()
+        private Piece[,] CreateBoard()
         {
-            return new string[_boardSize,_boardSize];
+            return new Piece[_boardSize,_boardSize];
         }
 
 
@@ -42,10 +42,10 @@ namespace CheckersHafifa
             players[1] = new Player("bb", _boardSize, "B");
         }
 
-        private string[,] PopulateBoard()
+        private Piece[,] PopulateBoard()
         {
             // TODO: make current col dynamic
-            string[,] board = CreateBoard();
+            Piece[,] board = CreateBoard();
 
             foreach (Player player in players)
             {
@@ -59,7 +59,7 @@ namespace CheckersHafifa
             return board;       
         }
 
-        private void ChooseRowsToPopulate(string[,] board, Player player)
+        private void ChooseRowsToPopulate(Piece[,] board, Player player)
         {
             if (player == players[0])
             {
@@ -70,7 +70,7 @@ namespace CheckersHafifa
                 AlternateRowPopulating(board, player, board.GetLength(1) - 3);
             }
         }
-        private void AlternateRowPopulating(string[,] board, Player player, int colIndex)
+        private void AlternateRowPopulating(Piece[,] board, Player player, int colIndex)
         {
             // TODO: length (3) extract to constants file as NUMBER_OF_ROWS_TO_POPULATE
             int maxColIndex = colIndex + 3;
@@ -87,23 +87,23 @@ namespace CheckersHafifa
             }
         }
 
-        private void PopulateEvenRows(int currentCol, Player player, string[,] board)
+        private void PopulateEvenRows(int currentCol, Player player, Piece[,] board)
         {
             for (int i = 1; i < board.GetLength(0); i = i + 2)
             {
-                board[currentCol, i] = player.pieces[currentCol].pieceColor;
+                board[currentCol, i] = player.pieces[currentCol];
             }
         }
 
-        private void PopulateNegativeRows(int currentCol, Player player, string[,] board)
+        private void PopulateNegativeRows(int currentCol, Player player, Piece[,] board)
         {
             for (int i = 0; i < board.GetLength(1); i = i + 2)
             {
-                board[currentCol, i] = player.pieces[currentCol].pieceColor;
+                board[currentCol, i] = player.pieces[currentCol];
             }
         }
 
-        private string[,] InitializeGame()
+        private Piece[,] InitializeGame()
         {
             CreateBoard();
             GeneratePlayers();
@@ -112,8 +112,9 @@ namespace CheckersHafifa
 
         public void StartGame()
         {
-            Gameplay gameplay = new();
-            gameplay.StartGame(players, InitializeGame());
+            // Gameplay gameplay = new();
+            // gameplay.StartGame(players, InitializeGame());
+            Console.WriteLine(InitializeGame());
         }
     }
 }
