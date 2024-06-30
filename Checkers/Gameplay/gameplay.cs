@@ -52,7 +52,11 @@ namespace CheckersHafifa
                     printToConsole.PromptInvalidInput();   
                 }
 
-                validateTurns.ValidateEatLeftDiagonal(playerMoveChoice, board, currentPlayer);
+
+                Console.WriteLine(validateTurns.ValidateEatLeftDiagonal(board, currentPlayer));
+                Console.WriteLine(validateTurns.ValidateEatRightDiagonal(board, currentPlayer));
+                Console.WriteLine(validateTurns.ValidateMoveForward(board));
+
                 // else if (validateTurns.ValidateMoveForward(playerMoveChoice, board))
                 // {
                 //     int col = validateTurns.ParseColPlayerMove(playerMoveChoice);
