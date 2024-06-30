@@ -22,7 +22,14 @@ namespace CheckersHafifa
                         ? ConsoleColor.Black 
                         : ConsoleColor.White;
                     
-                    Console.Write($"         " + board[r, c] + "         ");
+                    if (board[r,c] is null)
+                    {
+                       Console.Write($"         " + board[r, c] + "         "); 
+                    }
+                    else
+                    {
+                       Console.Write($"         " + board[r,c].pieceColor + "         ");
+                    }
                     Console.ResetColor();
                 }
                 Console.WriteLine();
