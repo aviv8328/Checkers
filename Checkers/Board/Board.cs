@@ -1,7 +1,7 @@
 namespace CheckersHafifa
 {
     //TODO: Change board from string[,] --> Piece[,].
-    public class Board // : IBoard
+    public class Board : IBoard
     {
         // TODO: magic number to user variable
         public Player[] players = new Player[2];
@@ -18,7 +18,7 @@ namespace CheckersHafifa
             printToConsole.GetBoardSize();
             _boardSize = validateGameAttributes.ReturnValidBoardSizeConsole();
         }
-        private Piece[,] CreateBoard()
+        public Piece[,] CreateBoard()
         {
             return new Piece[_boardSize,_boardSize];
         }
@@ -112,9 +112,8 @@ namespace CheckersHafifa
 
         public void StartGame()
         {
-            // Gameplay gameplay = new();
-            // gameplay.StartGame(players, InitializeGame());
-            Console.WriteLine(InitializeGame());
+            Gameplay gameplay = new();
+            gameplay.StartGame(players, InitializeGame());
         }
     }
 }

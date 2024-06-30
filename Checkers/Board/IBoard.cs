@@ -4,6 +4,6 @@ namespace CheckersHafifa
 {
     interface IBoard 
     {
-        public string[,] CreateBoard();
+        public Piece[,] CreateBoard();
     }
 }
