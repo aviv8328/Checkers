@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 
 namespace CheckersHafifa
 {
-    public class ValidateGameAttributes : IValidate
+    public class ValidateGameAttributes
     {
         PrintToConsole printToConsole = new();
         private int GetConsoleBoardSize()
@@ -41,10 +41,6 @@ namespace CheckersHafifa
             while (!ValidateBoardSize(boardSize));
 
             return boardSize;
-        }
-        public bool ValidatePlayerName(string playerName)
-        {
-            throw new NotImplementedException();
         }
     }
 }
