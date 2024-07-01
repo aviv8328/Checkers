@@ -42,7 +42,7 @@ namespace CheckersHafifa
 
             // TODO: Remove print to console its testy
             PrintToConsole printToConsole = new();
-            printToConsole.PrintBoardToConsole(board, true);
+            printToConsole.PrintBoardToConsole(board);
         }
 
         private void ChooseRowsToPopulate(Player player)

@@ -145,15 +145,15 @@ namespace CheckersHafifa
             var pieceActions = new Dictionary<Func<Piece[,], Player, bool>, string>
             {
                 { validateTurns.ValidateMoveForward, "To eat press 1" },
-                { validateTurns.ValidateEatRightDiagonal, "To move right press 2" },
-                { validateTurns.ValidateEatLeftDiagonal, "To move left press 3" },
+                { validateTurns.ValidateEatLeftDiagonal, "To move left press 2" },
+                { validateTurns.ValidateEatRightDiagonal, "To move right press 3" },
             };
 
             List<Action> actions = new List<Action>
             {
                 {() => MoveForward(currentPlayer, row, col)},
-                {() => MoveDiagnalRight(currentPlayer, row, col)},
-                {() => MoveDiagnalLeft(currentPlayer, row, col)}
+                {() => MoveDiagnalLeft(currentPlayer, row, col)},
+                {() => MoveDiagnalRight(currentPlayer, row, col)}
             };
 
             List<String> pieceValidActions = new List<string>();
@@ -199,17 +199,16 @@ namespace CheckersHafifa
             _secondPlayerBoard[newInvertedRow, newInvertedCol] = currentPlayer.pieces[0];
 
             UpdateCurrentBoard();
-            printToConsole.PrintBoardToConsole(_board, firstPlayer);
+            printToConsole.PrintBoardToConsole(_board);
         }
 
         private void MoveDiagnalRight(Player currentPlayer, int row, int col)
         {
             var (invertedRow, invertedCol) = InvertCoordinates(row, col);
-            var (newInvertedRow, newInvertedCol) = InvertCoordinates(row, col);
 
             int placeHolder;
 
-            if (firstPlayer)
+            if (!firstPlayer)
             {
                 placeHolder = invertedRow;
                 invertedRow = row;
@@ -219,6 +218,7 @@ namespace CheckersHafifa
                 invertedCol = col;
                 col = placeHolder;   
             }
+            var (newInvertedRow, newInvertedCol) = InvertCoordinates(row, col);
 
             _firstPlayerBoard[row, col] = null;
             _firstPlayerBoard[row + 1, col - 1] = currentPlayer.pieces[0];
@@ -227,17 +227,16 @@ namespace CheckersHafifa
             _secondPlayerBoard[newInvertedRow + 1, newInvertedCol - 1] = currentPlayer.pieces[0];
 
             UpdateCurrentBoard();
-            printToConsole.PrintBoardToConsole(_board, firstPlayer);
+            printToConsole.PrintBoardToConsole(_board);
         }
 
         private void MoveDiagnalLeft(Player currentPlayer, int row, int col)
         {
             var (invertedRow, invertedCol) = InvertCoordinates(row, col);
-            var (newInvertedRow, newInvertedCol) = InvertCoordinates(row + 1, col + 1);
 
             int placeHolder;
             
-            if (firstPlayer)
+            if (!firstPlayer)
             {
                 placeHolder = invertedRow;
                 invertedRow = row;
@@ -247,10 +246,7 @@ namespace CheckersHafifa
                 invertedCol = col;
                 col = placeHolder;   
             }
-
-            Console.WriteLine($"{row}{col}");
-            Console.WriteLine($" " + _firstPlayerBoard[row,col] + " " + _firstPlayerBoard[row + 1, col + 1]);
-            Console.WriteLine($" " + _secondPlayerBoard[invertedRow, invertedCol] + " " + _secondPlayerBoard[newInvertedRow, newInvertedCol]);
+            var (newInvertedRow, newInvertedCol) = InvertCoordinates(row + 1, col + 1);
 
             _firstPlayerBoard[row, col] = null;
             _firstPlayerBoard[row + 1, col + 1] = currentPlayer.pieces[0];
@@ -260,10 +256,7 @@ namespace CheckersHafifa
 
             UpdateCurrentBoard();
 
-            Console.WriteLine($" " + _firstPlayerBoard[row,col] + " " + _firstPlayerBoard[row + 1, col + 1]);
-            Console.WriteLine($" " + _secondPlayerBoard[invertedRow, invertedCol] + " " + _secondPlayerBoard[newInvertedRow, newInvertedCol]);
-
-            printToConsole.PrintBoardToConsole(_board, firstPlayer);
+            printToConsole.PrintBoardToConsole(_board);
         }
 
         private void AlternatePlayerTurns()
