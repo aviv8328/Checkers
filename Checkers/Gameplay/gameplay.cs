@@ -8,6 +8,7 @@ namespace CheckersHafifa
         ParsePlayerMoves parsePlayerMoves = new();
         Piece[,] _board;
         ValidateGameAttributes validateGameAttributes = new();
+        Dictionary<int, Action> pieceActionsUponPlayerInput = new Dictionary<int, Action>();
 
         public void StartGame(Player[] players, Piece[,] board)
         {
@@ -50,12 +51,11 @@ namespace CheckersHafifa
             try
             {
                 string playerMoveChoice = GetPlayerPiece(currentPlayer);
-                var pieceActions = GetActions(currentPlayer, playerMoveChoice);
 
-                PromptPlayerUponPieceValidActions(currentPlayer);
+                PromptPlayerUponPieceValidActions(currentPlayer, playerMoveChoice);
                 int playerAction = validateGameAttributes.ReturnConsolePlayerAction();
 
-                pieceActions[playerAction].Invoke();
+                invokeActionUponPlayerInput(playerAction); 
             }
             catch (Exception e)
             {
@@ -63,6 +63,17 @@ namespace CheckersHafifa
             }
         }
 
+        private void invokeActionUponPlayerInput(int playerAction)
+        {
+            if (pieceActionsUponPlayerInput.ContainsKey(playerAction - 1))
+            {
+                pieceActionsUponPlayerInput[playerAction - 1].Invoke();
+            }
+            else
+            {
+                printToConsole.PromptNoValidMovesAvailable();
+            }
+        }
         private string GetPlayerPiece(Player currentPlayer)
         {
             printToConsole.PromptPieceToMove();
@@ -77,27 +88,20 @@ namespace CheckersHafifa
             return playerMoveChoice;
         }
 
-        private Dictionary<int, Action> GetActions(Player currentPlayer, string playerMoveChoice)
+        private void GetActions(int actionIndex, Action action)
         {
+            pieceActionsUponPlayerInput.Add(actionIndex, action);
+        }
+
+        private void PromptPlayerUponPieceValidActions(Player currentPlayer, string playerMoveChoice)
+        {
+            // TODO: MOVE PIECE ACTIONS TO A CONST FILE
+            pieceActionsUponPlayerInput.Clear();
             int row;
             int col;
 
             row = parsePlayerMoves.ParseRowPlayerMove(playerMoveChoice);
             col = parsePlayerMoves.ParseColPlayerMove(playerMoveChoice);
-
-            var pieceActionsUponPlayerInput = new Dictionary<int, Action>
-            {
-                { 1, () => MoveForward(currentPlayer, row, col) },
-                { 2, () => EatDiagnalLeft(currentPlayer, row, col)  },
-                { 3, () => EatDiagnalRight(currentPlayer, row, col) }
-            };
-
-            return pieceActionsUponPlayerInput;
-        }
-
-        private void PromptPlayerUponPieceValidActions(Player currentPlayer)
-        {
-            // TODO: MOVE PIECE ACTIONS TO A CONST FILE
 
             var pieceActions = new Dictionary<Func<Piece[,], Player, bool>, string>
             {
@@ -106,14 +110,24 @@ namespace CheckersHafifa
                 { validateTurns.ValidateEatRightDiagonal, "To eat right press 3" },
             };
 
+            List<Action> actions = new List<Action>
+            {
+                {() => MoveForward(currentPlayer, row, col)},
+                {() => EatDiagnalLeft(currentPlayer, row, col)},
+                {() => EatDiagnalRight(currentPlayer, row, col)}
+            };
+
             List<String> pieceValidActions = new List<string>();
 
+            int actionIndex = 0;
             foreach (var action in pieceActions)
             {
                 if (action.Key(_board, currentPlayer))
                 {
+                    GetActions(actionIndex, actions[actionIndex]);
                     pieceValidActions.Add(action.Value);
                 }
+                actionIndex++;
             }
 
             if (pieceValidActions.Count == 0)
