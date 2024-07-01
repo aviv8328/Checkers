@@ -34,7 +34,7 @@ namespace CheckersHafifa
                     
                     if (board[r,c] is null)
                     {
-                       Console.Write($"         " + board[r, c] + "         "); 
+                       Console.Write($"          " + board[r, c] + "         "); 
                     }
                     else
                     {

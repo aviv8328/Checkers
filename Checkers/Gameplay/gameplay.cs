@@ -145,8 +145,8 @@ namespace CheckersHafifa
             var pieceActions = new Dictionary<Func<Piece[,], Player, bool>, string>
             {
                 { validateTurns.ValidateMoveForward, "To eat press 1" },
-                { validateTurns.ValidateEatRightDiagonal, "To move left press 2" },
-                { validateTurns.ValidateEatLeftDiagonal, "To move right press 3" },
+                { validateTurns.ValidateEatRightDiagonal, "To move right press 2" },
+                { validateTurns.ValidateEatLeftDiagonal, "To move left press 3" },
             };
 
             List<Action> actions = new List<Action>
@@ -205,13 +205,26 @@ namespace CheckersHafifa
         private void MoveDiagnalRight(Player currentPlayer, int row, int col)
         {
             var (invertedRow, invertedCol) = InvertCoordinates(row, col);
-            var (newInvertedRow, newInvertedCol) = InvertCoordinates(row + 1, col - 1);
+            var (newInvertedRow, newInvertedCol) = InvertCoordinates(row, col);
+
+            int placeHolder;
+
+            if (firstPlayer)
+            {
+                placeHolder = invertedRow;
+                invertedRow = row;
+                row = placeHolder;
+
+                placeHolder = invertedCol;
+                invertedCol = col;
+                col = placeHolder;   
+            }
 
             _firstPlayerBoard[row, col] = null;
             _firstPlayerBoard[row + 1, col - 1] = currentPlayer.pieces[0];
 
             _secondPlayerBoard[invertedRow, invertedCol] = null;
-            _secondPlayerBoard[newInvertedRow, newInvertedCol] = currentPlayer.pieces[0];
+            _secondPlayerBoard[newInvertedRow + 1, newInvertedCol - 1] = currentPlayer.pieces[0];
 
             UpdateCurrentBoard();
             printToConsole.PrintBoardToConsole(_board, firstPlayer);
@@ -222,6 +235,23 @@ namespace CheckersHafifa
             var (invertedRow, invertedCol) = InvertCoordinates(row, col);
             var (newInvertedRow, newInvertedCol) = InvertCoordinates(row + 1, col + 1);
 
+            int placeHolder;
+            
+            if (firstPlayer)
+            {
+                placeHolder = invertedRow;
+                invertedRow = row;
+                row = placeHolder;
+
+                placeHolder = invertedCol;
+                invertedCol = col;
+                col = placeHolder;   
+            }
+
+            Console.WriteLine($"{row}{col}");
+            Console.WriteLine($" " + _firstPlayerBoard[row,col] + " " + _firstPlayerBoard[row + 1, col + 1]);
+            Console.WriteLine($" " + _secondPlayerBoard[invertedRow, invertedCol] + " " + _secondPlayerBoard[newInvertedRow, newInvertedCol]);
+
             _firstPlayerBoard[row, col] = null;
             _firstPlayerBoard[row + 1, col + 1] = currentPlayer.pieces[0];
 
@@ -229,6 +259,10 @@ namespace CheckersHafifa
             _secondPlayerBoard[newInvertedRow, newInvertedCol] = currentPlayer.pieces[0];
 
             UpdateCurrentBoard();
+
+            Console.WriteLine($" " + _firstPlayerBoard[row,col] + " " + _firstPlayerBoard[row + 1, col + 1]);
+            Console.WriteLine($" " + _secondPlayerBoard[invertedRow, invertedCol] + " " + _secondPlayerBoard[newInvertedRow, newInvertedCol]);
+
             printToConsole.PrintBoardToConsole(_board, firstPlayer);
         }
 
