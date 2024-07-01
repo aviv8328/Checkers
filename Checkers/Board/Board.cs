@@ -70,36 +70,36 @@ namespace CheckersHafifa
                 AlternateRowPopulating(board, player, board.GetLength(1) - 3);
             }
         }
-        private void AlternateRowPopulating(Piece[,] board, Player player, int colIndex)
+        private void AlternateRowPopulating(Piece[,] board, Player player, int rowIndex)
         {
             // TODO: length (3) extract to constants file as NUMBER_OF_ROWS_TO_POPULATE
-            int maxColIndex = colIndex + 3;
-            for (; colIndex < maxColIndex; colIndex++)
+            int maxRowIndex = rowIndex + 3;
+            for (; rowIndex < maxRowIndex; rowIndex++)
             {
-                if (colIndex % 2 == 0)
+                if (rowIndex % 2 == 0)
                 {
-                    PopulateEvenRows(colIndex, player, board);
+                    PopulateEvenRows(rowIndex, player, board);
                 }
                 else
                 {
-                    PopulateNegativeRows(colIndex, player, board);
+                    PopulateNegativeRows(rowIndex, player, board);
                 }
             }
         }
 
-        private void PopulateEvenRows(int currentCol, Player player, Piece[,] board)
+        private void PopulateEvenRows(int currentRow, Player player, Piece[,] board)
         {
             for (int i = 1; i < board.GetLength(0); i = i + 2)
             {
-                board[currentCol, i] = player.pieces[currentCol];
+                board[currentRow, i] = player.pieces[currentRow];
             }
         }
 
-        private void PopulateNegativeRows(int currentCol, Player player, Piece[,] board)
+        private void PopulateNegativeRows(int currentRow, Player player, Piece[,] board)
         {
             for (int i = 0; i < board.GetLength(1); i = i + 2)
             {
-                board[currentCol, i] = player.pieces[currentCol];
+                board[currentRow, i] = player.pieces[currentRow];
             }
         }
 
