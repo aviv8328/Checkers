@@ -161,7 +161,7 @@ namespace CheckersHafifa
             _board[row, col] = null;
             _board[row + 1, col - 1] = currentPlayer.pieces[0];
             printToConsole.PrintBoardToConsole(_board);
-            firstPlayer = false;
+            AlternatePlayerTurns();
         }
 
         private void MoveDiagnalRight(Player currentPlayer, int row, int col)
@@ -169,7 +169,14 @@ namespace CheckersHafifa
             _board[row, col] = null;
             _board[row + 1, col + 1] = currentPlayer.pieces[0];
             printToConsole.PrintBoardToConsole(_board);
-            firstPlayer = false;
+            AlternatePlayerTurns();
+        }
+
+        private void AlternatePlayerTurns()
+        {
+            firstPlayer = firstPlayer == true
+            ? firstPlayer = false
+            : firstPlayer = true;
         }
     }
 }
