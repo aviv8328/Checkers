@@ -218,13 +218,12 @@ namespace CheckersHafifa
                 invertedCol = col;
                 col = placeHolder;   
             }
-            var (newInvertedRow, newInvertedCol) = InvertCoordinates(row, col);
 
+            _firstPlayerBoard[row + 1, col + 1] = _firstPlayerBoard[row, col];
             _firstPlayerBoard[row, col] = null;
-            _firstPlayerBoard[row + 1, col - 1] = currentPlayer.pieces[0];
 
+            _secondPlayerBoard[invertedRow + 1, invertedCol + 1] = _secondPlayerBoard[invertedRow, invertedCol];
             _secondPlayerBoard[invertedRow, invertedCol] = null;
-            _secondPlayerBoard[newInvertedRow + 1, newInvertedCol - 1] = currentPlayer.pieces[0];
 
             UpdateCurrentBoard();
             printToConsole.PrintBoardToConsole(_board);
@@ -232,6 +231,7 @@ namespace CheckersHafifa
 
         private void MoveDiagnalLeft(Player currentPlayer, int row, int col)
         {
+            Console.WriteLine("we here");
             // TODO: SRP TO REMOVE REDUNDANT CODE
             var (invertedRow, invertedCol) = InvertCoordinates(row, col);
 
@@ -247,14 +247,13 @@ namespace CheckersHafifa
                 invertedCol = col;
                 col = placeHolder;   
             }
-            var (newInvertedRow, newInvertedCol) = InvertCoordinates(row + 1, col + 1);
 
+            _firstPlayerBoard[row + 1, col - 1] = _firstPlayerBoard[row, col];
             _firstPlayerBoard[row, col] = null;
-            _firstPlayerBoard[row + 1, col + 1] = currentPlayer.pieces[0];
 
+            _secondPlayerBoard[invertedRow + 1, invertedCol - 1] = _secondPlayerBoard[invertedRow, invertedCol];
             _secondPlayerBoard[invertedRow, invertedCol] = null;
-            _secondPlayerBoard[newInvertedRow, newInvertedCol] = currentPlayer.pieces[0];
-
+            
             UpdateCurrentBoard();
 
             printToConsole.PrintBoardToConsole(_board);
