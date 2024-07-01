@@ -27,6 +27,7 @@ namespace CheckersHafifa
                 {
                     break;   
                 }
+                printToConsole.PrintBoardToConsole(_board);
             }
         }
 
