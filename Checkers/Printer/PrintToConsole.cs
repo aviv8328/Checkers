@@ -90,5 +90,10 @@ namespace CheckersHafifa
         {
             Console.WriteLine(currentAction);
         }
+
+        public void InvalidPiece()
+        {
+            Console.WriteLine("This is not your piece! Choose a different piece");
+        }
     }
 }

@@ -30,6 +30,10 @@ namespace CheckersHafifa
 
         private bool ValidateCurrentPlayerPiece(Piece[,] board, string pieceColor)
         {
+            if (board[playerRow, playerCol] is null)
+            {
+                return false;
+            }
             return board[playerRow, playerCol].pieceColor == pieceColor;
         }
 

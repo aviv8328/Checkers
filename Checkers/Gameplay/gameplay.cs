@@ -1,5 +1,3 @@
-using System.Dynamic;
-
 namespace CheckersHafifa
 {
     public class Gameplay()
@@ -8,25 +6,27 @@ namespace CheckersHafifa
         ValidateTurns validateTurns = new();
         PrintToConsole printToConsole = new();
         ParsePlayerMoves parsePlayerMoves = new();
+        Piece[,] _board;
 
         ValidateGameAttributes validateGameAttributes = new();
 
         public void StartGame(Player[] players, Piece[,] board)
         {
+            _board = board;
+            PrintToConsole printToConsole = new();
             while (true)
             {
                 Player currentPlayer = ReturnCurrentPlayer(players);
-                PrintToConsole printToConsole = new();
                 printToConsole.PromptCurrentPlayerToConsole(currentPlayer);
-                printToConsole.PromptPieceToMove();
 
-                PromptCurrentPlayer(board, currentPlayer);
+                PromptCurrentPlayer(currentPlayer);
+
+                printToConsole.PromptExit();
                 int.TryParse(Console.ReadLine(), out int keepPlaying);
                 if (keepPlaying == 1)
                 {
                     break;   
                 }
-                printToConsole.PromptExit();
             }
         }
 
@@ -41,30 +41,21 @@ namespace CheckersHafifa
                 return players[1];
             }
         }
-        public void PromptCurrentPlayer(Piece[,] board, Player currentPlayer)
+        public void PromptCurrentPlayer(Player currentPlayer)
         {
             //TODO :
             // Get user input in different ways rather than console.readline
             // Place parse row + col in different file
 
-
-            string playerMoveChoice = Console.ReadLine();
-
             try
             {
-                if (!validateTurns.ValidateChosenPiece(playerMoveChoice, board, currentPlayer.pieces[0].pieceColor))
-                {
-                    printToConsole.PromptInvalidInput();
-                }
+                string playerMoveChoice = GetPlayerPiece(currentPlayer);
+                var pieceActions = GetActions(currentPlayer, playerMoveChoice);
 
-                var pieceActions = GetActions(board, currentPlayer, playerMoveChoice);
-
-                PromptPlayerUponPieceValidActions(board, currentPlayer);
-
+                PromptPlayerUponPieceValidActions(currentPlayer);
                 int playerAction = validateGameAttributes.ReturnConsolePlayerAction();
 
                 pieceActions[playerAction].Invoke();
-
             }
             catch (Exception e)
             {
@@ -72,7 +63,21 @@ namespace CheckersHafifa
             }
         }
 
-        private Dictionary<int, Action> GetActions(Piece[,] board, Player currentPlayer, string playerMoveChoice)
+        private string GetPlayerPiece(Player currentPlayer)
+        {
+            printToConsole.PromptPieceToMove();
+            string playerMoveChoice = Console.ReadLine();
+
+            while (!validateTurns.ValidateChosenPiece(playerMoveChoice, _board, currentPlayer.pieces[0].pieceColor))
+            {
+                printToConsole.InvalidPiece();
+                playerMoveChoice = Console.ReadLine();
+            }
+
+            return playerMoveChoice;
+        }
+
+        private Dictionary<int, Action> GetActions(Player currentPlayer, string playerMoveChoice)
         {
             int col;
             int row;
@@ -82,15 +87,15 @@ namespace CheckersHafifa
 
             var pieceActionsUponPlayerInput = new Dictionary<int, Action>
             {
-                { 1, () => MoveForward(currentPlayer, board, col, row) },
-                { 2, () => EatDiagnalLeft(currentPlayer, board, col, row)  },
-                { 3, () => EatDiagnalRight(currentPlayer, board, col, row) }
+                { 1, () => MoveForward(currentPlayer, col, row) },
+                { 2, () => EatDiagnalLeft(currentPlayer, col, row)  },
+                { 3, () => EatDiagnalRight(currentPlayer, col, row) }
             };
 
             return pieceActionsUponPlayerInput;
         }
 
-        private void PromptPlayerUponPieceValidActions(Piece[,] board, Player currentPlayer)
+        private void PromptPlayerUponPieceValidActions(Player currentPlayer)
         {
             // TODO: MOVE PIECE ACTIONS TO A CONST FILE
 
@@ -105,7 +110,7 @@ namespace CheckersHafifa
 
             foreach (var action in pieceActions)
             {
-                if (action.Key(board, currentPlayer))
+                if (action.Key(_board, currentPlayer))
                 {
                     pieceValidActions.Add(action.Value);
                 }
@@ -124,31 +129,25 @@ namespace CheckersHafifa
             }
         }
 
-        private void MoveForward(Player currentPlayer, Piece[,] board, int col, int row)
-        {
-            printToConsole.PromptMoveForward();
-            
-            board[col, row] = null;
-            board[col + 1, row] = currentPlayer.pieces[0];
-            printToConsole.PrintBoardToConsole(board);            
+        private void MoveForward(Player currentPlayer, int col, int row)
+        {            
+            _board[col, row] = null;
+            _board[col + 1, row] = currentPlayer.pieces[0];
+            printToConsole.PrintBoardToConsole(_board);
         }
 
-        private void EatDiagnalLeft(Player currentPlayer, Piece[,] board, int col, int row)
+        private void EatDiagnalLeft(Player currentPlayer, int col, int row)
         {
-            printToConsole.PromptEatPiece();
-
-            board[col, row] = null;
-            board[col + 2, row - 2] = currentPlayer.pieces[0];
-            printToConsole.PrintBoardToConsole(board);
+            _board[col, row] = null;
+            _board[col + 2, row - 2] = currentPlayer.pieces[0];
+            printToConsole.PrintBoardToConsole(_board);
         }
 
-        private void EatDiagnalRight(Player currentPlayer, Piece[,] board, int col, int row)
+        private void EatDiagnalRight(Player currentPlayer, int col, int row)
         {
-            printToConsole.PromptEatPiece();
-
-            board[col, row] = null;
-            board[col + 2, row + 2] = currentPlayer.pieces[0];
-            printToConsole.PrintBoardToConsole(board);
+            _board[col, row] = null;
+            _board[col + 2, row + 2] = currentPlayer.pieces[0];
+            printToConsole.PrintBoardToConsole(_board);
         }
     }
 }
