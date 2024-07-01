@@ -6,9 +6,11 @@ namespace CheckersHafifa
         // TODO: magic number to user variable
         public Player[] players = new Player[2];
         private int _boardSize;
-        public Board(int boardSize)
+        public Piece[,] board;
+        public Board(int boardSize, Player[] userPlayers)
         {
-            _boardSize = boardSize;   
+            _boardSize = boardSize;
+            players = userPlayers;
         }
         public Board()
         {
@@ -18,22 +20,10 @@ namespace CheckersHafifa
             printToConsole.GetBoardSize();
             _boardSize = validateGameAttributes.ReturnValidBoardSizeConsole();
         }
-        public Piece[,] CreateBoard()
+        public void CreateBoard()
         {
-            return new Piece[_boardSize,_boardSize];
+            board = new Piece[_boardSize,_boardSize];
         }
-
-
-        // TODO: Create 2 equal boards one for the black and one for the white side
-
-        // private string[,] CreateBlackBoard()
-        // {
-        //     return new string[_boardSize,_boardSize];
-        // }
-        // private string[,] CreateWhiteBoard()
-        // {
-        //     return new string[_boardSize,_boardSize];
-        // }
         
         public void GeneratePlayers()
         {
@@ -42,35 +32,31 @@ namespace CheckersHafifa
             players[1] = new Player("bb", _boardSize, "B");
         }
 
-        private Piece[,] PopulateBoard()
+        private void PopulateBoard()
         {
             // TODO: make current col dynamic
-            Piece[,] board = CreateBoard();
-
             foreach (Player player in players)
             {
-                ChooseRowsToPopulate(board, player);
+                ChooseRowsToPopulate(player);
             }
 
             // TODO: Remove print to console its testy
             PrintToConsole printToConsole = new();
-            printToConsole.PrintBoardToConsole(board);
-
-            return board;       
+            printToConsole.PrintBoardToConsole(board, true);
         }
 
-        private void ChooseRowsToPopulate(Piece[,] board, Player player)
+        private void ChooseRowsToPopulate(Player player)
         {
             if (player == players[0])
             {
-                AlternateRowPopulating(board, player, 0);
+                AlternateRowPopulating(player, 0);
             }
             else
             {
-                AlternateRowPopulating(board, player, board.GetLength(1) - 3);
+                AlternateRowPopulating(player, board.GetLength(1) - 3);
             }
         }
-        private void AlternateRowPopulating(Piece[,] board, Player player, int rowIndex)
+        private void AlternateRowPopulating(Player player, int rowIndex)
         {
             // TODO: length (3) extract to constants file as NUMBER_OF_ROWS_TO_POPULATE
             int maxRowIndex = rowIndex + 3;
@@ -103,11 +89,11 @@ namespace CheckersHafifa
             }
         }
 
-        public Piece[,] InitializeGameBoard()
+        public void InitializeGameBoard()
         {
             CreateBoard();
             GeneratePlayers();
-            return PopulateBoard();
+            PopulateBoard();
         }
     }
 }

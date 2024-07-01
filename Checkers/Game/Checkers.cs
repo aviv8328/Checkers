@@ -6,9 +6,9 @@ namespace CheckersHafifa
         {
             Gameplay gameplay = new();
             Board board = new();
-            Piece[,] gameBoard = board.InitializeGameBoard();   
+            board.InitializeGameBoard();   
 
-            gameplay.StartGame(board.players, gameBoard);
+            gameplay.StartGame(board.players, board.board);
         }
     }
 
