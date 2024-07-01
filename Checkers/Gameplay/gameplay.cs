@@ -6,13 +6,18 @@ namespace CheckersHafifa
         ValidateTurns validateTurns = new();
         PrintToConsole printToConsole = new();
         ParsePlayerMoves parsePlayerMoves = new();
-        Piece[,] _board;
+        private Piece[,] _firstPlayerBoard;
+        private Piece[,] _secondPlayerBoard;
+        private Piece[,] _board;
         ValidateGameAttributes validateGameAttributes = new();
         Dictionary<int, Action> pieceActionsUponPlayerInput = new Dictionary<int, Action>();
 
+
         public void StartGame(Player[] players, Piece[,] board)
         {
-            _board = board;
+            _firstPlayerBoard = board;
+            CreateSecondInvertedBoard();
+
             PrintToConsole printToConsole = new();
             while (true)
             {
@@ -27,8 +32,24 @@ namespace CheckersHafifa
                 {
                     break;   
                 }
-                printToConsole.PrintBoardToConsole(_board, firstPlayer);
             }
+        }
+
+        private void CreateSecondInvertedBoard()
+        {
+            int numberOfRows = _firstPlayerBoard.GetLength(0);
+            int numberOfColumns = _firstPlayerBoard.GetLength(1);
+            Piece[,] secondBoard = new Piece[numberOfRows, numberOfColumns];
+
+            for (int r = 0; r < numberOfRows; r++)
+            {
+                for (int c = 0; c < numberOfColumns; c++)
+                {
+                    secondBoard[numberOfRows - 1 - r, numberOfColumns - 1 - c] = _firstPlayerBoard[r, c];
+                }
+            }
+
+            _secondPlayerBoard = secondBoard;
         }
 
         private Player ReturnCurrentPlayer(Player[] players)
@@ -78,8 +99,20 @@ namespace CheckersHafifa
                 printToConsole.PromptNoValidMovesAvailable();
             }
         }
+
+        private void SetCurrentPlayerBoard()
+        {
+            _board = firstPlayer == true
+            ? _board = _firstPlayerBoard
+            : _board = _secondPlayerBoard;
+        }
         private string GetPlayerPiece(Player currentPlayer)
         {
+            if (_board is null)
+            {
+                SetCurrentPlayerBoard();
+            }
+
             printToConsole.PromptPieceToMove();
             string playerMoveChoice = Console.ReadLine();
 
@@ -112,15 +145,15 @@ namespace CheckersHafifa
             var pieceActions = new Dictionary<Func<Piece[,], Player, bool>, string>
             {
                 { validateTurns.ValidateMoveForward, "To eat press 1" },
-                { validateTurns.ValidateEatLeftDiagonal, "To move left press 2" },
-                { validateTurns.ValidateEatRightDiagonal, "To move right press 3" },
+                { validateTurns.ValidateEatRightDiagonal, "To move left press 2" },
+                { validateTurns.ValidateEatLeftDiagonal, "To move right press 3" },
             };
 
             List<Action> actions = new List<Action>
             {
                 {() => MoveForward(currentPlayer, row, col)},
-                {() => MoveDiagnalLeft(currentPlayer, row, col)},
-                {() => MoveDiagnalRight(currentPlayer, row, col)}
+                {() => MoveDiagnalRight(currentPlayer, row, col)},
+                {() => MoveDiagnalLeft(currentPlayer, row, col)}
             };
 
             List<String> pieceValidActions = new List<string>();
@@ -149,27 +182,54 @@ namespace CheckersHafifa
             }
         }
 
+        private (int, int) InvertCoordinates(int row, int col)
+        {
+            return (_board.GetLength(0) - 1 - row, _board.GetLength(1) - 1 - col);
+        }
         private void MoveForward(Player currentPlayer, int row, int col)
         {            
-            _board[row, col] = null;
-            _board[row + 2, col] = currentPlayer.pieces[0];
+
+            var (invertedRow, invertedCol) = InvertCoordinates(row, col);
+            var (newInvertedRow, newInvertedCol) = InvertCoordinates(row + 2, col);
+
+            _firstPlayerBoard[row, col] = null;
+            _firstPlayerBoard[row + 2, col] = currentPlayer.pieces[0];
+
+            _secondPlayerBoard[invertedRow, invertedCol] = null;
+            _secondPlayerBoard[newInvertedRow, newInvertedCol] = currentPlayer.pieces[0];
+
+            UpdateCurrentBoard();
+            printToConsole.PrintBoardToConsole(_board, firstPlayer);
+        }
+
+        private void MoveDiagnalRight(Player currentPlayer, int row, int col)
+        {
+            var (invertedRow, invertedCol) = InvertCoordinates(row, col);
+            var (newInvertedRow, newInvertedCol) = InvertCoordinates(row + 1, col - 1);
+
+            _firstPlayerBoard[row, col] = null;
+            _firstPlayerBoard[row + 1, col - 1] = currentPlayer.pieces[0];
+
+            _secondPlayerBoard[invertedRow, invertedCol] = null;
+            _secondPlayerBoard[newInvertedRow, newInvertedCol] = currentPlayer.pieces[0];
+
+            UpdateCurrentBoard();
             printToConsole.PrintBoardToConsole(_board, firstPlayer);
         }
 
         private void MoveDiagnalLeft(Player currentPlayer, int row, int col)
         {
-            _board[row, col] = null;
-            _board[row + 1, col - 1] = currentPlayer.pieces[0];
-            printToConsole.PrintBoardToConsole(_board, firstPlayer);
-            AlternatePlayerTurns();
-        }
+            var (invertedRow, invertedCol) = InvertCoordinates(row, col);
+            var (newInvertedRow, newInvertedCol) = InvertCoordinates(row + 1, col + 1);
 
-        private void MoveDiagnalRight(Player currentPlayer, int row, int col)
-        {
-            _board[row, col] = null;
-            _board[row + 1, col + 1] = currentPlayer.pieces[0];
+            _firstPlayerBoard[row, col] = null;
+            _firstPlayerBoard[row + 1, col + 1] = currentPlayer.pieces[0];
+
+            _secondPlayerBoard[invertedRow, invertedCol] = null;
+            _secondPlayerBoard[newInvertedRow, newInvertedCol] = currentPlayer.pieces[0];
+
+            UpdateCurrentBoard();
             printToConsole.PrintBoardToConsole(_board, firstPlayer);
-            AlternatePlayerTurns();
         }
 
         private void AlternatePlayerTurns()
@@ -177,6 +237,12 @@ namespace CheckersHafifa
             firstPlayer = firstPlayer == true
             ? firstPlayer = false
             : firstPlayer = true;
+        }
+
+        private void UpdateCurrentBoard()
+        {
+            AlternatePlayerTurns();
+            SetCurrentPlayerBoard();
         }
     }
 }
