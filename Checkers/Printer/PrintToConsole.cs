@@ -28,9 +28,11 @@ namespace CheckersHafifa
                 for (int c = 0; c < board.GetLength(1); c++)
                 {
                     Console.BackgroundColor = GetBackgroundColorOfSquare(r, c);
-                    Console.ForegroundColor = Console.BackgroundColor == ConsoleColor.Black 
-                        ? ConsoleColor.White 
-                        : ConsoleColor.Black;
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    
+                    //Console.BackgroundColor == ConsoleColor.Black 
+                    //? ConsoleColor.White 
+                    //: ConsoleColor.Black;
                     
                     if (board[r,c] is null)
                     {
