@@ -53,9 +53,12 @@ namespace CheckersHafifa
                 string playerMoveChoice = GetPlayerPiece(currentPlayer);
                 
                 PromptPlayerUponPieceValidActions(currentPlayer, playerMoveChoice);
-                int playerAction = validateGameAttributes.ReturnConsolePlayerAction();
 
-                invokeActionUponPlayerInput(playerAction); 
+                if (validateTurns.ValidateActionList(pieceActionsUponPlayerInput))
+                {
+                    int playerAction = validateGameAttributes.ReturnConsolePlayerAction();
+                    invokeActionUponPlayerInput(playerAction);
+                }
             }
             catch (Exception e)
             {
@@ -107,9 +110,9 @@ namespace CheckersHafifa
 
             var pieceActions = new Dictionary<Func<Piece[,], Player, bool>, string>
             {
-                { validateTurns.ValidateMoveForward, "To move forward press 1" },
-                { validateTurns.ValidateEatLeftDiagonal, "To eat left press 2" },
-                { validateTurns.ValidateEatRightDiagonal, "To eat right press 3" },
+                { validateTurns.ValidateMoveForward, "To eat press 1" },
+                { validateTurns.ValidateEatLeftDiagonal, "To move left press 2" },
+                { validateTurns.ValidateEatRightDiagonal, "To move right press 3" },
             };
 
             List<Action> actions = new List<Action>

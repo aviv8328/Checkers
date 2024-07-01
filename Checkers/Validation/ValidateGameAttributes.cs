@@ -36,7 +36,7 @@ namespace CheckersHafifa
 
             while (!int.TryParse(Console.ReadLine(), out playerAction))
             {
-                printToConsole.InvalidSize();
+                printToConsole.InvalidAction();
             };
 
             return playerAction;

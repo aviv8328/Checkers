@@ -83,5 +83,10 @@ namespace CheckersHafifa
         {
             return board[playerRow + 1, playerCol + 1] is null;
         }
+
+        public bool ValidateActionList(Dictionary<int, Action> pieceActionsUponPlayerInput)
+        {
+            return pieceActionsUponPlayerInput.Count > 0;
+        }
     }
 }
