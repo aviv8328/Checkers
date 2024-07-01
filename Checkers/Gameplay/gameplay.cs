@@ -7,7 +7,6 @@ namespace CheckersHafifa
         PrintToConsole printToConsole = new();
         ParsePlayerMoves parsePlayerMoves = new();
         Piece[,] _board;
-
         ValidateGameAttributes validateGameAttributes = new();
 
         public void StartGame(Player[] players, Piece[,] board)
@@ -41,6 +40,7 @@ namespace CheckersHafifa
                 return players[1];
             }
         }
+  
         public void PromptCurrentPlayer(Player currentPlayer)
         {
             //TODO :
@@ -79,17 +79,17 @@ namespace CheckersHafifa
 
         private Dictionary<int, Action> GetActions(Player currentPlayer, string playerMoveChoice)
         {
-            int col;
             int row;
+            int col;
 
-            col = parsePlayerMoves.ParseColPlayerMove(playerMoveChoice);
             row = parsePlayerMoves.ParseRowPlayerMove(playerMoveChoice);
+            col = parsePlayerMoves.ParseColPlayerMove(playerMoveChoice);
 
             var pieceActionsUponPlayerInput = new Dictionary<int, Action>
             {
-                { 1, () => MoveForward(currentPlayer, col, row) },
-                { 2, () => EatDiagnalLeft(currentPlayer, col, row)  },
-                { 3, () => EatDiagnalRight(currentPlayer, col, row) }
+                { 1, () => MoveForward(currentPlayer, row, col) },
+                { 2, () => EatDiagnalLeft(currentPlayer, row, col)  },
+                { 3, () => EatDiagnalRight(currentPlayer, row, col) }
             };
 
             return pieceActionsUponPlayerInput;
@@ -129,24 +129,24 @@ namespace CheckersHafifa
             }
         }
 
-        private void MoveForward(Player currentPlayer, int col, int row)
+        private void MoveForward(Player currentPlayer, int row, int col)
         {            
-            _board[col, row] = null;
-            _board[col + 1, row] = currentPlayer.pieces[0];
+            _board[row, col] = null;
+            _board[row + 1, col] = currentPlayer.pieces[0];
             printToConsole.PrintBoardToConsole(_board);
         }
 
-        private void EatDiagnalLeft(Player currentPlayer, int col, int row)
+        private void EatDiagnalLeft(Player currentPlayer, int row, int col)
         {
-            _board[col, row] = null;
-            _board[col + 2, row - 2] = currentPlayer.pieces[0];
+            _board[row, col] = null;
+            _board[row + 2, col - 2] = currentPlayer.pieces[0];
             printToConsole.PrintBoardToConsole(_board);
         }
 
-        private void EatDiagnalRight(Player currentPlayer, int col, int row)
+        private void EatDiagnalRight(Player currentPlayer, int row, int col)
         {
-            _board[col, row] = null;
-            _board[col + 2, row + 2] = currentPlayer.pieces[0];
+            _board[row, col] = null;
+            _board[row + 2, col + 2] = currentPlayer.pieces[0];
             printToConsole.PrintBoardToConsole(_board);
         }
     }
