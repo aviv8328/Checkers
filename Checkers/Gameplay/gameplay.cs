@@ -148,21 +148,21 @@ namespace CheckersHafifa
         private void MoveForward(Player currentPlayer, int row, int col)
         {            
             _board[row, col] = null;
-            _board[row + 1, col] = currentPlayer.pieces[0];
+            _board[row + 2, col] = currentPlayer.pieces[0];
             printToConsole.PrintBoardToConsole(_board);
         }
 
         private void EatDiagnalLeft(Player currentPlayer, int row, int col)
         {
             _board[row, col] = null;
-            _board[row + 2, col - 2] = currentPlayer.pieces[0];
+            _board[row + 1, col - 1] = currentPlayer.pieces[0];
             printToConsole.PrintBoardToConsole(_board);
         }
 
         private void EatDiagnalRight(Player currentPlayer, int row, int col)
         {
             _board[row, col] = null;
-            _board[row + 2, col + 2] = currentPlayer.pieces[0];
+            _board[row + 1, col + 1] = currentPlayer.pieces[0];
             printToConsole.PrintBoardToConsole(_board);
         }
     }
