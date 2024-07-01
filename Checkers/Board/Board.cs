@@ -64,16 +64,16 @@ namespace CheckersHafifa
             {
                 if (rowIndex % 2 == 0)
                 {
-                    PopulateEvenRows(rowIndex, player, board);
+                    PopulateEvenRows(rowIndex, player);
                 }
                 else
                 {
-                    PopulateNegativeRows(rowIndex, player, board);
+                    PopulateNegativeRows(rowIndex, player);
                 }
             }
         }
 
-        private void PopulateEvenRows(int currentRow, Player player, Piece[,] board)
+        private void PopulateEvenRows(int currentRow, Player player)
         {
             for (int i = 0; i < board.GetLength(0); i = i + 2)
             {
@@ -81,7 +81,7 @@ namespace CheckersHafifa
             }
         }
 
-        private void PopulateNegativeRows(int currentRow, Player player, Piece[,] board)
+        private void PopulateNegativeRows(int currentRow, Player player)
         {
             for (int i = 1; i < board.GetLength(1); i = i + 2)
             {
