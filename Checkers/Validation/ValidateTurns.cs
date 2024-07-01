@@ -13,6 +13,7 @@ namespace CheckersHafifa
             }
             return false;
         }
+        
         private bool ValidateString(string playerMove)
         {
             if (!playerMove.Contains(','))
@@ -46,7 +47,7 @@ namespace CheckersHafifa
         {
             return ValidateDiagonalLeftRanges(board) && CheckDiagonalLeftPiece(board, currentPlayer);
         }
-        
+
         public bool ValidateEatRightDiagonal(Piece[,] board, Player currentPlayer)
         {
             return ValidateDiagonalRightRanges(board) && CheckDiagonalRightPiece(board, currentPlayer) ;

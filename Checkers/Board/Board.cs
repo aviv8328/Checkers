@@ -103,17 +103,11 @@ namespace CheckersHafifa
             }
         }
 
-        private Piece[,] InitializeGame()
+        public Piece[,] InitializeGameBoard()
         {
             CreateBoard();
             GeneratePlayers();
             return PopulateBoard();
-        }
-
-        public void StartGame()
-        {
-            Gameplay gameplay = new();
-            gameplay.StartGame(players, InitializeGame());
         }
     }
 }
