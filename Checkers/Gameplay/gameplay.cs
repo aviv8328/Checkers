@@ -232,6 +232,7 @@ namespace CheckersHafifa
 
         private void MoveDiagnalLeft(Player currentPlayer, int row, int col)
         {
+            // TODO: SRP TO REMOVE REDUNDANT CODE
             var (invertedRow, invertedCol) = InvertCoordinates(row, col);
 
             int placeHolder;
