@@ -119,8 +119,8 @@ namespace CheckersHafifa
             List<Action> actions = new List<Action>
             {
                 {() => MoveForward(currentPlayer, row, col)},
-                {() => EatDiagnalLeft(currentPlayer, row, col)},
-                {() => EatDiagnalRight(currentPlayer, row, col)}
+                {() => MoveDiagnalLeft(currentPlayer, row, col)},
+                {() => MoveDiagnalRight(currentPlayer, row, col)}
             };
 
             List<String> pieceValidActions = new List<string>();
@@ -156,18 +156,20 @@ namespace CheckersHafifa
             printToConsole.PrintBoardToConsole(_board);
         }
 
-        private void EatDiagnalLeft(Player currentPlayer, int row, int col)
+        private void MoveDiagnalLeft(Player currentPlayer, int row, int col)
         {
             _board[row, col] = null;
             _board[row + 1, col - 1] = currentPlayer.pieces[0];
             printToConsole.PrintBoardToConsole(_board);
+            firstPlayer = false;
         }
 
-        private void EatDiagnalRight(Player currentPlayer, int row, int col)
+        private void MoveDiagnalRight(Player currentPlayer, int row, int col)
         {
             _board[row, col] = null;
             _board[row + 1, col + 1] = currentPlayer.pieces[0];
             printToConsole.PrintBoardToConsole(_board);
+            firstPlayer = false;
         }
     }
 }
