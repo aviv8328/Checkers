@@ -39,17 +39,22 @@ namespace CheckersHafifa
 
         public bool ValidateMoveForward(Piece[,] board, Player currentPlayer)
         {
-            return board[playerRow, playerCol + 1] == null && playerRow + 1 < board.GetLength(0);
+            return board[playerRow + 1, playerCol] == null && playerRow + 1 < board.GetLength(0);
         }
 
         public bool ValidateEatLeftDiagonal(Piece[,] board, Player currentPlayer)
         {
-            return CheckDiagonalLeftPiece(board, currentPlayer) && ValidateDiagonalLeftRanges(board, playerCol, playerRow);
+            return ValidateDiagonalLeftRanges(board) && CheckDiagonalLeftPiece(board, currentPlayer);
+        }
+        
+        public bool ValidateEatRightDiagonal(Piece[,] board, Player currentPlayer)
+        {
+            return ValidateDiagonalRightRanges(board) && CheckDiagonalRightPiece(board, currentPlayer) ;
         }
 
-        private static bool ValidateDiagonalLeftRanges(Piece[,] board, int col, int row)
+        private bool ValidateDiagonalLeftRanges(Piece[,] board)
         {
-            return col - 1 <= board.GetLength(1) && row + 1 <= board.GetLength(0);
+            return playerRow + 1 <= board.GetLength(0) && playerCol - 1 >= 0;
         }
 
         private bool CheckDiagonalLeftPiece(Piece[,] board, Player currentPlayer)
@@ -57,14 +62,10 @@ namespace CheckersHafifa
             return board[playerRow + 1, playerCol - 1] != null && board[playerRow + 1, playerCol - 1].pieceColor != currentPlayer.pieces[0].pieceColor;
         }
 
-        public bool ValidateEatRightDiagonal(Piece[,] board, Player currentPlayer)
-        {
-            return CheckDiagonalRightPiece(board, currentPlayer) && ValidateDiagonalRightRanges(board, playerCol, playerRow);
-        }
 
-        private static bool ValidateDiagonalRightRanges(Piece[,] board, int col, int row)
+        private bool ValidateDiagonalRightRanges(Piece[,] board)
         {
-            return col + 1 <= board.GetLength(1) && row + 1 <= board.GetLength(0);
+            return playerRow + 1 <= board.GetLength(0) && playerCol + 1 <= board.GetLength(1);
         }
 
         private bool CheckDiagonalRightPiece(Piece[,] board, Player currentPlayer)
