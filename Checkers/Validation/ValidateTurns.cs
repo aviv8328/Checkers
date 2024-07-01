@@ -13,7 +13,7 @@ namespace CheckersHafifa
             }
             return false;
         }
-        
+
         private bool ValidateString(string playerMove)
         {
             if (!playerMove.Contains(','))
@@ -40,7 +40,17 @@ namespace CheckersHafifa
 
         public bool ValidateMoveForward(Piece[,] board, Player currentPlayer)
         {
-            return board[playerRow + 1, playerCol] == null && playerRow + 1 < board.GetLength(0);
+            if (board[playerRow + 1, playerCol] is null)
+            {
+                return false;
+            }
+
+            return  board[playerRow + 1, playerCol].pieceColor != currentPlayer.pieces[0].pieceColor && ValidateMoveForwardRanges(board);
+        }
+
+        private bool ValidateMoveForwardRanges(Piece[,] board)
+        {
+            return playerRow + 1 < board.GetLength(0);
         }
 
         public bool ValidateEatLeftDiagonal(Piece[,] board, Player currentPlayer)

@@ -51,7 +51,7 @@ namespace CheckersHafifa
             try
             {
                 string playerMoveChoice = GetPlayerPiece(currentPlayer);
-
+                
                 PromptPlayerUponPieceValidActions(currentPlayer, playerMoveChoice);
                 int playerAction = validateGameAttributes.ReturnConsolePlayerAction();
 
@@ -96,7 +96,9 @@ namespace CheckersHafifa
         private void PromptPlayerUponPieceValidActions(Player currentPlayer, string playerMoveChoice)
         {
             // TODO: MOVE PIECE ACTIONS TO A CONST FILE
+            // FIND A MORE DYNAMIC WAY TO CREATE THE LIST AND DICTIONARIES
             pieceActionsUponPlayerInput.Clear();
+
             int row;
             int col;
 
