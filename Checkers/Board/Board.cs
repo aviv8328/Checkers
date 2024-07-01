@@ -89,7 +89,7 @@ namespace CheckersHafifa
 
         private void PopulateEvenRows(int currentRow, Player player, Piece[,] board)
         {
-            for (int i = 1; i < board.GetLength(0); i = i + 2)
+            for (int i = 0; i < board.GetLength(0); i = i + 2)
             {
                 board[currentRow, i] = player.pieces[currentRow];
             }
@@ -97,7 +97,7 @@ namespace CheckersHafifa
 
         private void PopulateNegativeRows(int currentRow, Player player, Piece[,] board)
         {
-            for (int i = 0; i < board.GetLength(1); i = i + 2)
+            for (int i = 1; i < board.GetLength(1); i = i + 2)
             {
                 board[currentRow, i] = player.pieces[currentRow];
             }

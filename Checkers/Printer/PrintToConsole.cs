@@ -23,14 +23,14 @@ namespace CheckersHafifa
         }
         public void PrintBoardToConsole(Piece[,] board)
         {
-            for (int r = 0; r < board.GetLength(0); r++)
+            for (int r = board.GetLength(0) - 1; r >= 0; r--)
             {
                 for (int c = 0; c < board.GetLength(1); c++)
                 {
                     Console.BackgroundColor = GetBackgroundColorOfSquare(r, c);
-                    Console.ForegroundColor = Console.BackgroundColor == ConsoleColor.White 
-                        ? ConsoleColor.Black 
-                        : ConsoleColor.White;
+                    Console.ForegroundColor = Console.BackgroundColor == ConsoleColor.Black 
+                        ? ConsoleColor.White 
+                        : ConsoleColor.Black;
                     
                     if (board[r,c] is null)
                     {
@@ -48,7 +48,7 @@ namespace CheckersHafifa
 
         public ConsoleColor GetBackgroundColorOfSquare(int row, int col)
         {
-            return (row + col) % 2 == 0 ? ConsoleColor.White : ConsoleColor.Black;
+            return (row + col) % 2 == 0 ? ConsoleColor.Black : ConsoleColor.White;
         }
 
         public void PrintCurrentPlayerTurnToConsole(Player player)
