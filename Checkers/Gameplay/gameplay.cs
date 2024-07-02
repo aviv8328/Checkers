@@ -204,52 +204,35 @@ namespace CheckersHafifa
 
         private void MoveDiagnalRight(int row, int col)
         {
-            var (invertedRow, invertedCol) = InvertCoordinates(row, col);
-
-            if (firstPlayer)
-            {
-                _firstPlayerBoard[row + 1, col + 1] = _firstPlayerBoard[row, col];
-                _firstPlayerBoard[row, col] = null;
-
-                _secondPlayerBoard[invertedRow - 1, invertedCol - 1] = _secondPlayerBoard[invertedRow, invertedCol];
-                _secondPlayerBoard[invertedRow, invertedCol] = null;
-            }
-            else
-            {
-                _secondPlayerBoard[row + 1, col + 1] = _secondPlayerBoard[row, col];
-                _secondPlayerBoard[row, col] = null;
-
-                _firstPlayerBoard[invertedRow - 1, invertedCol - 1] = _firstPlayerBoard[invertedRow, invertedCol];
-                _firstPlayerBoard[invertedRow, invertedCol] = null; 
-            }  
-
-            UpdateCurrentBoard();
-            printToConsole.PrintBoardToConsole(_board);
+            MovePiece(row, col, 1, 1);
         }
 
         private void MoveDiagnalLeft(int row, int col)
         {
-            // TODO: SRP TO REMOVE REDUNDANT CODE
+            MovePiece(row, col, 1, -1);
+        }
+
+        private void MovePiece(int row, int col, int rowOffset, int colOffset)
+        {   
             var (invertedRow, invertedCol) = InvertCoordinates(row, col);
-            int placeHolder;
-            
+
             if (firstPlayer)
-            {
-                _firstPlayerBoard[row + 1, col - 1] = _firstPlayerBoard[row, col];
-                _firstPlayerBoard[row, col] = null;
+                {
+                    _firstPlayerBoard[row + rowOffset, col + colOffset] = _firstPlayerBoard[row, col];
+                    _firstPlayerBoard[row, col] = null;
 
-                _secondPlayerBoard[invertedRow - 1, invertedCol + 1] = _secondPlayerBoard[invertedRow, invertedCol];
-                _secondPlayerBoard[invertedRow, invertedCol] = null;
-            }
-            else
-            {
-                _secondPlayerBoard[row + 1, col - 1] = _secondPlayerBoard[row, col];
-                _secondPlayerBoard[row, col] = null;
+                    _secondPlayerBoard[invertedRow - rowOffset, invertedCol - colOffset] = _secondPlayerBoard[invertedRow, invertedCol];
+                    _secondPlayerBoard[invertedRow, invertedCol] = null;
+                }
+                else
+                {
+                    _secondPlayerBoard[row + rowOffset, col + colOffset] = _secondPlayerBoard[row, col];
+                    _secondPlayerBoard[row, col] = null;
 
-                _firstPlayerBoard[invertedRow - 1, invertedCol + 1] = _firstPlayerBoard[invertedRow, invertedCol];
-                _firstPlayerBoard[invertedRow, invertedCol] = null; 
-            }  
-            
+                    _firstPlayerBoard[invertedRow - rowOffset, invertedCol - colOffset] = _firstPlayerBoard[invertedRow, invertedCol];
+                    _firstPlayerBoard[invertedRow, invertedCol] = null;
+                }
+
             UpdateCurrentBoard();
             printToConsole.PrintBoardToConsole(_board);
         }
