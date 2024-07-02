@@ -122,6 +122,8 @@ namespace CheckersHafifa
             return pieceActionsUponPlayerInput.Count > 0;
         }
 
+        // public bool ValidatePieceAction
+
         // public bool ValidateIfQueen(Piece[,] board)
         // {
 

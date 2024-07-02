@@ -106,5 +106,10 @@ namespace CheckersHafifa
         {
             Console.WriteLine($"{player.playerName} IS THE WINNER!");
         }
+
+        public void ClearConsole()
+        {
+            Console.Clear();
+        }
     }
 }

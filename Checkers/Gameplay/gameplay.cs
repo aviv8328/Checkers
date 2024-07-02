@@ -21,7 +21,7 @@ namespace CheckersHafifa
             CreateSecondInvertedBoard();
 
             PrintToConsole printToConsole = new();
-            
+
             while (true)
             {
                 Player currentPlayer = ReturnCurrentPlayer(players);
@@ -86,18 +86,21 @@ namespace CheckersHafifa
             try
             {
                 string playerMoveChoice = GetPlayerPiece(currentPlayer);
-                
                 PromptPlayerUponPieceValidActions(currentPlayer, playerMoveChoice);
-
-                if (validateTurns.ValidateActionList(pieceActionsUponPlayerInput))
-                {
-                    int playerAction = validateGameAttributes.ReturnConsolePlayerAction();
-                    invokeActionUponPlayerInput(playerAction);
-                }
+                ActOnPlayerMove();
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
+            }
+        }
+
+        private void ActOnPlayerMove()
+        {
+            if (validateTurns.ValidateActionList(pieceActionsUponPlayerInput))
+            {
+                int playerAction = validateGameAttributes.ReturnConsolePlayerAction();
+                invokeActionUponPlayerInput(playerAction);
             }
         }
 
@@ -223,9 +226,7 @@ namespace CheckersHafifa
                     _firstPlayerBoard[invertedRow - rowOffset, invertedCol - colOffset] = pieceCreator.GeneratePiece(currentPlayer.teamColor);
                     _firstPlayerBoard[invertedRow, invertedCol].isAlive = false;
                 }
-
             UpdateCurrentBoard();
-            printToConsole.PrintBoardToConsole(_board);
         }
 
         private void killPiece(int row, int col, int rowOffset, int colOffset)
@@ -256,14 +257,22 @@ namespace CheckersHafifa
 
         private void EatDiagonalLeft(int row, int col, Player currentPlayer)
         {
+            string newPosition = $"{row + -2},{col + -2}";
+
             killPiece(row, col, -1, -1);
             MovePiece(row, col, -2, -2, currentPlayer);
+            UpdateCurrentBoard();
+            PromptPlayerUponPieceValidActions(currentPlayer, newPosition);
         }
   
         private void EatDiagonalRight(int row, int col, Player currentPlayer)
         {
+            string newPosition = $"{row + 2},{col + 2}";
+
             killPiece(row, col, 1, 1);
             MovePiece(row, col, 2, 2, currentPlayer);
+            UpdateCurrentBoard();
+            PromptPlayerUponPieceValidActions(currentPlayer, newPosition);
         }
 
         private void AlternatePlayerTurns()
@@ -282,6 +291,8 @@ namespace CheckersHafifa
         {
             AlternatePlayerTurns();
             SetCurrentPlayerBoard();
+            printToConsole.ClearConsole();
+            printToConsole.PrintBoardToConsole(_board);
         }
     }
 }
