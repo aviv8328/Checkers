@@ -147,13 +147,15 @@ namespace CheckersHafifa
                 { validateTurns.ValidateMoveForward, "To eat press 1" },
                 { validateTurns.ValidateMoveLeftDiagonal, "To move left press 2" },
                 { validateTurns.ValidateMoveRightDiagonal, "To move right press 3" },
+                { validateTurns.ValidateEatRightDiagonal, "To eat right press 4"},
             };
 
             List<Action> actions = new List<Action>
             {
                 {() => MoveForward(row, col)},
                 {() => MoveDiagnalLeft(row, col)},
-                {() => MoveDiagnalRight(row, col)}
+                {() => MoveDiagnalRight(row, col)},
+                {() => EatDiagonalRight(row, col)}
             };
 
             List<String> pieceValidActions = new List<string>();
@@ -224,6 +226,11 @@ namespace CheckersHafifa
         private void MoveDiagnalLeft(int row, int col)
         {
             MovePiece(row, col, 1, -1);
+        }
+
+        private void EatDiagonalRight(int row, int col)
+        {
+            MovePiece(row, col, 2, 2);
         }
 
         private void AlternatePlayerTurns()
