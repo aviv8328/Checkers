@@ -54,11 +54,11 @@ namespace CheckersHafifa
             int numberOfColumns = _firstPlayerBoard.GetLength(1);
             Piece[,] secondBoard = new Piece[numberOfRows, numberOfColumns];
 
-            for (int r = 0; r < numberOfRows; r++)
+            for (int row = 0; row < numberOfRows; row++)
             {
-                for (int c = 0; c < numberOfColumns; c++)
+                for (int col = 0; col < numberOfColumns; col++)
                 {
-                    secondBoard[numberOfRows - 1 - r, numberOfColumns - 1 - c] = _firstPlayerBoard[r, c];
+                    secondBoard[numberOfRows - 1 - row, numberOfColumns - 1 - col] = _firstPlayerBoard[row, col];
                 }
             }
 
