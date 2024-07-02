@@ -262,7 +262,9 @@ namespace CheckersHafifa
             killPiece(row, col, -1, -1);
             MovePiece(row, col, -2, -2, currentPlayer);
             UpdateCurrentBoard();
+            validateTurns.UpdateColAndRow(newPosition);
             PromptPlayerUponPieceValidActions(currentPlayer, newPosition);
+            ActOnPlayerMove();
         }
   
         private void EatDiagonalRight(int row, int col, Player currentPlayer)
@@ -272,7 +274,9 @@ namespace CheckersHafifa
             killPiece(row, col, 1, 1);
             MovePiece(row, col, 2, 2, currentPlayer);
             UpdateCurrentBoard();
+            validateTurns.UpdateColAndRow(newPosition);
             PromptPlayerUponPieceValidActions(currentPlayer, newPosition);
+            ActOnPlayerMove();
         }
 
         private void AlternatePlayerTurns()

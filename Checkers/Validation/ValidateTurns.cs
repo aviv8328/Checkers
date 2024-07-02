@@ -14,6 +14,11 @@ namespace CheckersHafifa
             return false;
         }
 
+        public void UpdateColAndRow(string playerMove)
+        {
+            ValidateString(playerMove);
+        }
+
         private bool ValidateString(string playerMove)
         {
             if (!playerMove.Contains(','))
