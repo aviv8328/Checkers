@@ -90,12 +90,12 @@ namespace CheckersHafifa
             }
             else 
             {
-                return CheckMoveDiagonalRight(board, 1);
+                return CheckDiagonalRightPiece(board, 1);
             }
         }
         public bool ValidateEatRightDiagonal(Piece[,] board, Player currentPlayer)
         {
-            return ValidateDiagonalRightRanges(board, 2) && CheckEatDiagonalRight(board, 2, currentPlayer);
+            return ValidateDiagonalRightRanges(board, 2) && CheckEatDiagonalRight(board, 2, currentPlayer) && CheckDiagonalRightPiece(board, 2);
         }
 
         private bool ValidateDiagonalRightRanges(Piece[,] board, int rowAndColOffset)
@@ -103,7 +103,7 @@ namespace CheckersHafifa
             return playerRow + rowAndColOffset < board.GetLength(0) && playerCol + rowAndColOffset < board.GetLength(1);
         }
 
-        private bool CheckMoveDiagonalRight(Piece[,] board, int rowAndColOffset)
+        private bool CheckDiagonalRightPiece(Piece[,] board, int rowAndColOffset)
         {
             return board[playerRow + rowAndColOffset, playerCol + rowAndColOffset].isAlive == false;
         }

@@ -261,18 +261,20 @@ namespace CheckersHafifa
 
             killPiece(row, col, -1, -1);
             MovePiece(row, col, -2, -2, currentPlayer);
-            UpdateCurrentBoard();
-            validateTurns.UpdateColAndRow(newPosition);
-            PromptPlayerUponPieceValidActions(currentPlayer, newPosition);
-            ActOnPlayerMove();
+            SecondTurn(currentPlayer, newPosition);
         }
-  
+
         private void EatDiagonalRight(int row, int col, Player currentPlayer)
         {
             string newPosition = $"{row + 2},{col + 2}";
 
             killPiece(row, col, 1, 1);
             MovePiece(row, col, 2, 2, currentPlayer);
+            SecondTurn(currentPlayer, newPosition);
+        }
+
+        private void SecondTurn(Player currentPlayer, string newPosition)
+        {
             UpdateCurrentBoard();
             validateTurns.UpdateColAndRow(newPosition);
             PromptPlayerUponPieceValidActions(currentPlayer, newPosition);
