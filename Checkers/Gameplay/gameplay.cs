@@ -145,8 +145,8 @@ namespace CheckersHafifa
             var pieceActions = new Dictionary<Func<Piece[,], Player, bool>, string>
             {
                 { validateTurns.ValidateMoveForward, "To eat press 1" },
-                { validateTurns.ValidateEatLeftDiagonal, "To move left press 2" },
-                { validateTurns.ValidateEatRightDiagonal, "To move right press 3" },
+                { validateTurns.ValidateMoveLeftDiagonal, "To move left press 2" },
+                { validateTurns.ValidateMoveRightDiagonal, "To move right press 3" },
             };
 
             List<Action> actions = new List<Action>
@@ -181,8 +181,6 @@ namespace CheckersHafifa
                 }
             }
         }
-
-
 
         private (int, int) InvertCoordinates(int row, int col)
         {
@@ -222,6 +220,7 @@ namespace CheckersHafifa
         {
             MovePiece(row, col, 1, 1);
         }
+
         private void MoveDiagnalLeft(int row, int col)
         {
             MovePiece(row, col, 1, -1);

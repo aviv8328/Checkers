@@ -53,15 +53,11 @@ namespace CheckersHafifa
             return playerRow + 2 < board.GetLength(0);
         }
 
-        public bool ValidateEatLeftDiagonal(Piece[,] board, Player currentPlayer)
+        public bool ValidateMoveLeftDiagonal(Piece[,] board, Player currentPlayer)
         {
             return ValidateDiagonalLeftRanges(board) && CheckDiagonalLeftPiece(board);
         }
 
-        public bool ValidateEatRightDiagonal(Piece[,] board, Player currentPlayer)
-        {
-            return ValidateDiagonalRightRanges(board) && CheckDiagonalRightPiece(board) ;
-        }
 
         private bool ValidateDiagonalLeftRanges(Piece[,] board)
         {
@@ -73,6 +69,10 @@ namespace CheckersHafifa
             return board[playerRow + 1, playerCol - 1] is null;
         }
 
+        public bool ValidateMoveRightDiagonal(Piece[,] board, Player currentPlayer)
+        {
+            return ValidateDiagonalRightRanges(board) && CheckDiagonalRightPiece(board) ;
+        }
 
         private bool ValidateDiagonalRightRanges(Piece[,] board)
         {
@@ -88,5 +88,10 @@ namespace CheckersHafifa
         {
             return pieceActionsUponPlayerInput.Count > 0;
         }
+
+        // public bool ValidateIfQueen(Piece[,] board)
+        // {
+
+        // }
     }
 }
