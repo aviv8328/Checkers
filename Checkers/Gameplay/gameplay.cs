@@ -219,7 +219,7 @@ namespace CheckersHafifa
 
             if (firstPlayer)
             {
-                _firstPlayerBoard[row + rowOffset, col + colOffset].isAlive = false;
+                _firstPlayerBoard[4, 4].isAlive = false;
                 _secondPlayerBoard[invertedRow - rowOffset, invertedCol - colOffset].isAlive = false;
             }
             else

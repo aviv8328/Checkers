@@ -7,6 +7,8 @@ namespace CheckersHafifa
         public Player[] players = new Player[2];
         private int _boardSize;
         public Piece[,] board;
+        private BlackPieceFactory blackPieceFactory = new();
+        private WhitePieceFactory whitePieceFactory = new();
         public Board(int boardSize, Player[] userPlayers)
         {
             _boardSize = boardSize;
@@ -77,7 +79,14 @@ namespace CheckersHafifa
         {
             for (int i = 0; i < board.GetLength(0); i = i + 2)
             {
-                board[currentRow, i] = player.pieces[currentRow];
+                if (player.teamColor == "B")
+                {
+                    board[currentRow, i] = blackPieceFactory.CreatePiece();
+                }
+                else
+                {
+                    board[currentRow, i] = whitePieceFactory.CreatePiece();
+                }
             }
         }
 
@@ -85,7 +94,14 @@ namespace CheckersHafifa
         {
             for (int i = 1; i < board.GetLength(1); i = i + 2)
             {
-                board[currentRow, i] = player.pieces[currentRow];
+                if (player.teamColor == "B")
+                {
+                    board[currentRow, i] = blackPieceFactory.CreatePiece();
+                }
+                else
+                {
+                    board[currentRow, i] = whitePieceFactory.CreatePiece();
+                }
             }
         }
 
