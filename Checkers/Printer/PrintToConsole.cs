@@ -38,6 +38,10 @@ namespace CheckersHafifa
                     {
                        Console.Write("        " + board[r, c] + $"     {r},{c}"); 
                     }
+                    else if (board[r,c].isAlive is false)
+                    {
+                        Console.Write("        "  + $"     {r},{c}"); 
+                    }
                     else
                     {
                        Console.Write("        " + board[r,c].pieceColor + $"    {r},{c}");

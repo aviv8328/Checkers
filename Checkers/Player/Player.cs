@@ -6,10 +6,12 @@ namespace CheckersHafifa
 
         public List<Piece> pieces = new List<Piece>();
 
+        public readonly string teamColor;
+
         public Player(string name, int boardSize, string pieceColor)
         {
             playerName = name;
-
+            teamColor = pieceColor;
             for (int i = 0; i < ReturnNumberOfPiecesInRow(boardSize); i++)
             {
                 GeneratePiecesBasedOnColor(pieceColor);

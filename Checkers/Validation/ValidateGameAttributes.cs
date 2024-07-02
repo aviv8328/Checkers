@@ -57,7 +57,7 @@ namespace CheckersHafifa
         public bool ValidatePlayerAction(int playerAction)
         {
             // TODO: Dynamic action validation (if he can only move forward then we need to check only on 3!)
-            if (playerAction == 1 || playerAction == 2 || playerAction == 3 || playerAction == 4)
+            if (playerAction == 1 || playerAction == 2 || playerAction == 3 || playerAction == 4 || playerAction == 5)
             {
                 return true;
             }

@@ -45,7 +45,7 @@ namespace CheckersHafifa
                 return false;
             }
 
-            return  board[playerRow + 1, playerCol].pieceColor != currentPlayer.pieces[0].pieceColor && ValidateMoveForwardRanges(board);
+            return  board[playerRow + 1, playerCol].pieceColor != currentPlayer.teamColor && ValidateMoveForwardRanges(board);
         }
 
         private bool ValidateMoveForwardRanges(Piece[,] board)
@@ -94,7 +94,7 @@ namespace CheckersHafifa
             {
                 return false;
             }
-            if (board[playerRow + rowAndColOffset - 1, playerCol + rowAndColOffset - 1].pieceColor == currentPlayer.pieces[0].pieceColor)
+            if (board[playerRow + rowAndColOffset - 1, playerCol + rowAndColOffset - 1].pieceColor == currentPlayer.teamColor)
             {
                 return false;
             }

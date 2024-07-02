@@ -2,16 +2,15 @@ namespace CheckersHafifa
 {
     public class Gameplay()
     {
-        bool firstPlayer = true;
         ValidateTurns validateTurns = new();
         PrintToConsole printToConsole = new();
         ParsePlayerMoves parsePlayerMoves = new();
+        ValidateGameAttributes validateGameAttributes = new();
+        Dictionary<int, Action> pieceActionsUponPlayerInput = new Dictionary<int, Action>();
         private Piece[,] _firstPlayerBoard;
         private Piece[,] _secondPlayerBoard;
         private Piece[,] _board;
-        ValidateGameAttributes validateGameAttributes = new();
-        Dictionary<int, Action> pieceActionsUponPlayerInput = new Dictionary<int, Action>();
-
+        bool firstPlayer = true;
 
         public void StartGame(Player[] players, Piece[,] board)
         {
@@ -116,7 +115,7 @@ namespace CheckersHafifa
             printToConsole.PromptPieceToMove();
             string playerMoveChoice = Console.ReadLine();
 
-            while (!validateTurns.ValidateChosenPiece(playerMoveChoice, _board, currentPlayer.pieces[0].pieceColor))
+            while (!validateTurns.ValidateChosenPiece(playerMoveChoice, _board, currentPlayer.teamColor))
             {
                 printToConsole.InvalidPiece();
                 playerMoveChoice = Console.ReadLine();
@@ -188,6 +187,7 @@ namespace CheckersHafifa
         {
             return (_board.GetLength(0) - 1 - row, _board.GetLength(1) - 1 - col);
         }
+
         private void MovePiece(int row, int col, int rowOffset, int colOffset)
         {   
             var (invertedRow, invertedCol) = InvertCoordinates(row, col);
@@ -213,6 +213,22 @@ namespace CheckersHafifa
             printToConsole.PrintBoardToConsole(_board);
         }
 
+        private void killPiece(int row, int col, int rowOffset, int colOffset)
+        {
+            var (invertedRow, invertedCol) = InvertCoordinates(row, col);
+
+            if (firstPlayer)
+            {
+                _firstPlayerBoard[row + rowOffset, col + colOffset].isAlive = false;
+                _secondPlayerBoard[invertedRow - rowOffset, invertedCol - colOffset].isAlive = false;
+            }
+            else
+            {
+                _secondPlayerBoard[row + rowOffset, col + colOffset].isAlive = false;
+                _firstPlayerBoard[invertedRow - rowOffset, invertedCol - colOffset].isAlive = false;
+            }
+        }
+
         private void MoveForward(int row, int col)
         {            
             MovePiece(row, col, 2, 0);
@@ -230,6 +246,7 @@ namespace CheckersHafifa
 
         private void EatDiagonalRight(int row, int col)
         {
+            killPiece(row, col, 1, 1);
             MovePiece(row, col, 2, 2);
         }
 
