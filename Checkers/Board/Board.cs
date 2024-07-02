@@ -77,6 +77,7 @@ namespace CheckersHafifa
 
         private void PopulateEvenRows(int currentRow, Player player)
         {
+            //TODO: generate pieces according to player team color in a dynamic way
             for (int i = 0; i < board.GetLength(0); i = i + 2)
             {
                 if (player.teamColor == "B")

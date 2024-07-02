@@ -83,7 +83,8 @@ namespace CheckersHafifa
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                Console.WriteLine("here");
+                Console.WriteLine(e.Message, e.Data);
             }
         }
 
@@ -143,17 +144,17 @@ namespace CheckersHafifa
 
             var pieceActions = new Dictionary<Func<Piece[,], Player, bool>, string>
             {
-                { validateTurns.ValidateMoveForward, "To eat press 1" },
-                { validateTurns.ValidateMoveLeftDiagonal, "To move left press 2" },
-                { validateTurns.ValidateMoveRightDiagonal, "To move right press 3" },
+                { validateTurns.ValidateMoveLeftDiagonal, "To move left press 1" },
+                { validateTurns.ValidateMoveRightDiagonal, "To move right press 2" },
+                { validateTurns.ValidateEatLeftDiagonal, "To move right press 3" },
                 { validateTurns.ValidateEatRightDiagonal, "To eat right press 4"},
             };
 
             List<Action> actions = new List<Action>
             {
-                {() => MoveForward(row, col)},
-                {() => MoveDiagnalLeft(row, col)},
-                {() => MoveDiagnalRight(row, col)},
+                {() => MoveDiagonalLeft(row, col)},
+                {() => MoveDiagonalRight(row, col)},
+                {() => EatDiagonalLeft(row, col)},
                 {() => EatDiagonalRight(row, col)}
             };
 
@@ -229,21 +230,22 @@ namespace CheckersHafifa
             }
         }
 
-        private void MoveForward(int row, int col)
-        {            
-            MovePiece(row, col, 2, 0);
-        }
-
-        private void MoveDiagnalRight(int row, int col)
+        private void MoveDiagonalRight(int row, int col)
         {
             MovePiece(row, col, 1, 1);
         }
 
-        private void MoveDiagnalLeft(int row, int col)
+        private void MoveDiagonalLeft(int row, int col)
         {
             MovePiece(row, col, 1, -1);
         }
 
+        private void EatDiagonalLeft(int row, int col)
+        {
+            killPiece(row, col, -1, -1);
+            MovePiece(row, col, -2, -2);
+        }
+  
         private void EatDiagonalRight(int row, int col)
         {
             killPiece(row, col, 1, 1);

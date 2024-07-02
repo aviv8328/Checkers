@@ -38,40 +38,55 @@ namespace CheckersHafifa
             return board[playerRow, playerCol].pieceColor == pieceColor;
         }
 
-        public bool ValidateMoveForward(Piece[,] board, Player currentPlayer)
+        public bool ValidateMoveLeftDiagonal(Piece[,] board, Player currentPlayer)
         {
-            if (board[playerRow + 1, playerCol] is null)
+            if (!ValidateDiagonalLeftRanges(board, 1))
+            {
+                return false;
+            }
+            else
+            {
+                return CheckDiagonalLeftPiece(board, 1);
+            }
+        }
+        public bool ValidateEatLeftDiagonal(Piece[,] board, Player currentPlayer)
+        {
+            return ValidateDiagonalLeftRanges(board, 2) && CheckEatDiagonalLeft(board, 2, currentPlayer) && CheckDiagonalLeftPiece(board, 2);
+        }
+        private bool CheckEatDiagonalLeft(Piece[,] board, int rowAndColOffset, Player currentPlayer)
+        {   
+            if (board[playerRow + rowAndColOffset - 1, playerCol - rowAndColOffset + 1] == null)
+            {
+                return false;
+            }
+            if (board[playerRow + rowAndColOffset - 1, playerCol + rowAndColOffset + 1].pieceColor == currentPlayer.teamColor)
             {
                 return false;
             }
 
-            return  board[playerRow + 1, playerCol].pieceColor != currentPlayer.teamColor && ValidateMoveForwardRanges(board);
+            return true;
         }
 
-        private bool ValidateMoveForwardRanges(Piece[,] board)
+        private bool ValidateDiagonalLeftRanges(Piece[,] board, int rowAndColOffset)
         {
-            return playerRow + 2 < board.GetLength(0);
+            return playerRow + rowAndColOffset < board.GetLength(0) && playerCol - rowAndColOffset >= 0;
         }
 
-        public bool ValidateMoveLeftDiagonal(Piece[,] board, Player currentPlayer)
+        private bool CheckDiagonalLeftPiece(Piece[,] board, int rowAndColOffset )
         {
-            return ValidateDiagonalLeftRanges(board) && CheckDiagonalLeftPiece(board);
-        }
-
-
-        private bool ValidateDiagonalLeftRanges(Piece[,] board)
-        {
-            return playerRow + 1 <= board.GetLength(0) && playerCol - 1 >= 0;
-        }
-
-        private bool CheckDiagonalLeftPiece(Piece[,] board)
-        {
-            return board[playerRow + 1, playerCol - 1] is null;
+            return board[playerRow + rowAndColOffset, playerCol - rowAndColOffset] is null;
         }
 
         public bool ValidateMoveRightDiagonal(Piece[,] board, Player currentPlayer)
         {
-            return ValidateDiagonalRightRanges(board, 1) && CheckMoveDiagonalRight(board, 1);
+            if (!ValidateDiagonalRightRanges(board, 1))
+            {
+                return false;
+            }
+            else 
+            {
+                return CheckMoveDiagonalRight(board, 1);
+            }
         }
         public bool ValidateEatRightDiagonal(Piece[,] board, Player currentPlayer)
         {
@@ -80,7 +95,7 @@ namespace CheckersHafifa
 
         private bool ValidateDiagonalRightRanges(Piece[,] board, int rowAndColOffset)
         {
-            return playerRow + rowAndColOffset <= board.GetLength(0) && playerCol + rowAndColOffset <= board.GetLength(1);
+            return playerRow + rowAndColOffset <= board.GetLength(0) && playerCol + rowAndColOffset < board.GetLength(1);
         }
 
         private bool CheckMoveDiagonalRight(Piece[,] board, int rowAndColOffset)
