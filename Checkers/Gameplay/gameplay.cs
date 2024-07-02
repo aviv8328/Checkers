@@ -29,7 +29,7 @@ namespace CheckersHafifa
                 PromptCurrentPlayer(currentPlayer);
                 CheckWinners(players, printToConsole);
 
-                if (!validateTurns.ValidateExit(printToConsole))
+                if (validateTurns.ValidateExit(printToConsole))
                 {
                     break;
                 }
