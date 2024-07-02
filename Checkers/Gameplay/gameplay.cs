@@ -95,13 +95,15 @@ namespace CheckersHafifa
             }
         }
 
-        private void ActOnPlayerMove()
+        private bool ActOnPlayerMove()
         {
             if (validateTurns.ValidateActionList(pieceActionsUponPlayerInput))
             {
                 int playerAction = validateGameAttributes.ReturnConsolePlayerAction();
                 invokeActionUponPlayerInput(playerAction);
+                return true;
             }
+            return false;
         }
 
         private void invokeActionUponPlayerInput(int playerAction)
@@ -278,7 +280,10 @@ namespace CheckersHafifa
             UpdateCurrentBoard();
             validateTurns.UpdateColAndRow(newPosition);
             PromptPlayerUponPieceValidActions(currentPlayer, newPosition);
-            ActOnPlayerMove();
+            if (!ActOnPlayerMove())
+            {
+                UpdateCurrentBoard();
+            }
         }
 
         private void AlternatePlayerTurns()
