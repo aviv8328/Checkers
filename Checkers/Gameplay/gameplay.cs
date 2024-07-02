@@ -182,36 +182,26 @@ namespace CheckersHafifa
             }
         }
 
+
+        // private void MoveForward(int row, int col)
+        // {            
+
+        //     var (invertedRow, invertedCol) = InvertCoordinates(row, col);
+        //     var (newInvertedRow, newInvertedCol) = InvertCoordinates(row + 2, col);
+
+        //     _firstPlayerBoard[row + 2, col] = _firstPlayerBoard[row, col];
+        //     _firstPlayerBoard[row, col] = null;
+
+        //     _secondPlayerBoard[newInvertedRow, newInvertedCol] = _secondPlayerBoard[row, col];
+        //     _secondPlayerBoard[invertedRow, invertedCol] = null;
+
+        //     UpdateCurrentBoard();
+        //     printToConsole.PrintBoardToConsole(_board);
+        // }
         private (int, int) InvertCoordinates(int row, int col)
         {
             return (_board.GetLength(0) - 1 - row, _board.GetLength(1) - 1 - col);
         }
-        private void MoveForward(int row, int col)
-        {            
-
-            var (invertedRow, invertedCol) = InvertCoordinates(row, col);
-            var (newInvertedRow, newInvertedCol) = InvertCoordinates(row + 2, col);
-
-            _firstPlayerBoard[row + 2, col] = _firstPlayerBoard[row, col];
-            _firstPlayerBoard[row, col] = null;
-
-            _secondPlayerBoard[newInvertedRow, newInvertedCol] = _secondPlayerBoard[row, col];
-            _secondPlayerBoard[invertedRow, invertedCol] = null;
-
-            UpdateCurrentBoard();
-            printToConsole.PrintBoardToConsole(_board);
-        }
-
-        private void MoveDiagnalRight(int row, int col)
-        {
-            MovePiece(row, col, 1, 1);
-        }
-
-        private void MoveDiagnalLeft(int row, int col)
-        {
-            MovePiece(row, col, 1, -1);
-        }
-
         private void MovePiece(int row, int col, int rowOffset, int colOffset)
         {   
             var (invertedRow, invertedCol) = InvertCoordinates(row, col);
@@ -235,6 +225,15 @@ namespace CheckersHafifa
 
             UpdateCurrentBoard();
             printToConsole.PrintBoardToConsole(_board);
+        }
+        private void MoveDiagnalRight(int row, int col)
+        {
+            MovePiece(row, col, 1, 1);
+        }
+
+        private void MoveDiagnalLeft(int row, int col)
+        {
+            MovePiece(row, col, 1, -1);
         }
 
         private void AlternatePlayerTurns()
