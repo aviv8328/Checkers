@@ -206,24 +206,22 @@ namespace CheckersHafifa
         {
             var (invertedRow, invertedCol) = InvertCoordinates(row, col);
 
-            int placeHolder;
-
-            if (!firstPlayer)
+            if (firstPlayer)
             {
-                placeHolder = invertedRow;
-                invertedRow = row;
-                row = placeHolder;
+                _firstPlayerBoard[row + 1, col + 1] = _firstPlayerBoard[row, col];
+                _firstPlayerBoard[row, col] = null;
 
-                placeHolder = invertedCol;
-                invertedCol = col;
-                col = placeHolder;   
+                _secondPlayerBoard[invertedRow - 1, invertedCol - 1] = _secondPlayerBoard[invertedRow, invertedCol];
+                _secondPlayerBoard[invertedRow, invertedCol] = null;
             }
+            else
+            {
+                _secondPlayerBoard[row + 1, col + 1] = _secondPlayerBoard[row, col];
+                _secondPlayerBoard[row, col] = null;
 
-            _firstPlayerBoard[row + 1, col + 1] = _firstPlayerBoard[row, col];
-            _firstPlayerBoard[row, col] = null;
-
-            _secondPlayerBoard[invertedRow - 1, invertedCol - 1] = _secondPlayerBoard[invertedRow, invertedCol];
-            _secondPlayerBoard[invertedRow, invertedCol] = null;
+                _firstPlayerBoard[invertedRow - 1, invertedCol - 1] = _firstPlayerBoard[invertedRow, invertedCol];
+                _firstPlayerBoard[invertedRow, invertedCol] = null; 
+            }  
 
             UpdateCurrentBoard();
             printToConsole.PrintBoardToConsole(_board);
@@ -250,8 +248,6 @@ namespace CheckersHafifa
 
                 _firstPlayerBoard[invertedRow - 1, invertedCol + 1] = _firstPlayerBoard[invertedRow, invertedCol];
                 _firstPlayerBoard[invertedRow, invertedCol] = null; 
-                
-                Console.WriteLine($"moved from {invertedRow},{invertedCol}{_firstPlayerBoard[invertedRow, invertedCol]} to: {_firstPlayerBoard[invertedRow - 1, invertedCol + 1]} {invertedRow - 1},{invertedCol + 1}");
             }  
             
             UpdateCurrentBoard();
