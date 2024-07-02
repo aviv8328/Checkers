@@ -162,5 +162,18 @@ namespace CheckersHafifa
 
             return true;
         }
+
+        public bool ValidateExit(PrintToConsole printToConsole)
+        {
+            printToConsole.PromptExit();
+            
+            int.TryParse(Console.ReadLine(), out int keepPlaying);
+            if (keepPlaying == 1)
+            {
+                return true;
+            }
+
+            return false;
+        }
     }
 }

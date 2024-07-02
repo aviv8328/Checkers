@@ -8,7 +8,7 @@ namespace CheckersHafifa
         public Player(string name, int boardSize, string pieceColor)
         {
             playerName = name;
-            teamColor = pieceColor;         
+            teamColor = pieceColor;
         }
     }
 }
