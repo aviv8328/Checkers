@@ -59,7 +59,7 @@ namespace CheckersHafifa
             {
                 return false;
             }
-            if (board[playerRow + rowAndColOffset - 1, playerCol + rowAndColOffset + 1].pieceColor == currentPlayer.teamColor)
+            if (board[playerRow + rowAndColOffset - 1, playerCol - rowAndColOffset + 1].pieceColor == currentPlayer.teamColor)
             {
                 return false;
             }
