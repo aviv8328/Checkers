@@ -117,15 +117,6 @@ namespace CheckersHafifa
             return true;
         }
 
-
-
-
-
-
-
-
-
-
         public bool ValidateActionList(Dictionary<int, Action> pieceActionsUponPlayerInput)
         {
             return pieceActionsUponPlayerInput.Count > 0;
@@ -135,5 +126,34 @@ namespace CheckersHafifa
         // {
 
         // }
+
+        public bool ValidateWinningPlayer(Piece[,] board, string teamColor)
+        {
+            int rowLength = board.GetLength(0);
+            int colLength = board.GetLength(1);
+
+            return ValidateWinningPlayer(board, rowLength, colLength, teamColor);
+        }
+
+        private bool ValidateWinningPlayer(Piece[,] board, int rowLength, int colLength, string teamColor)
+        {
+            for (int row = 0; row < rowLength; row++)
+            {
+                for (int col = 0; col < colLength; col++)
+                {
+                    if (board[row, col].pieceColor != teamColor)
+                    {
+                        return false;
+                    }
+
+                    else if (board[row, col].isAlive == false)
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        }
     }
 }

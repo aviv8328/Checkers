@@ -101,5 +101,10 @@ namespace CheckersHafifa
         {
             Console.WriteLine("This is not your piece! Choose a different piece");
         }
+
+        public void Winner(Player player)
+        {
+            Console.WriteLine($"{player.playerName} IS THE WINNER!");
+        }
     }
 }

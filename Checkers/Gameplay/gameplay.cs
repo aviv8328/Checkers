@@ -21,12 +21,23 @@ namespace CheckersHafifa
             CreateSecondInvertedBoard();
 
             PrintToConsole printToConsole = new();
+            
             while (true)
             {
                 Player currentPlayer = ReturnCurrentPlayer(players);
                 printToConsole.PromptCurrentPlayerToConsole(currentPlayer);
 
                 PromptCurrentPlayer(currentPlayer);
+
+                foreach (Player player in players)
+                {
+                    if (CheckWinningPlayer(_board, player))
+                    {
+                        printToConsole.Winner(player);
+                        break;
+                    }
+                }
+
 
                 printToConsole.PromptExit();
                 int.TryParse(Console.ReadLine(), out int keepPlaying);
@@ -108,6 +119,7 @@ namespace CheckersHafifa
             ? _board = _firstPlayerBoard
             : _board = _secondPlayerBoard;
         }
+  
         private string GetPlayerPiece(Player currentPlayer)
         {
             if (_board is null)
@@ -259,6 +271,11 @@ namespace CheckersHafifa
             firstPlayer = firstPlayer == true
             ? firstPlayer = false
             : firstPlayer = true;
+        }
+
+        private bool CheckWinningPlayer(Piece[,] board, Player player)
+        {
+            return validateTurns.ValidateWinningPlayer(board, player.teamColor);
         }
 
         private void UpdateCurrentBoard()
