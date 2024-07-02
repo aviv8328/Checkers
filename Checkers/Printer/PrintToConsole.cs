@@ -33,14 +33,14 @@ namespace CheckersHafifa
                     //Console.BackgroundColor == ConsoleColor.Black 
                     //? ConsoleColor.White 
                     //: ConsoleColor.Black;
-                    
+
                     if (board[r,c] is null)
                     {
-                       Console.Write($"          " + board[r, c] + "         "); 
+                       Console.Write("        " + board[r, c] + $"     {r},{c}"); 
                     }
                     else
                     {
-                       Console.Write($"         " + board[r,c].pieceColor + "         ");
+                       Console.Write("        " + board[r,c].pieceColor + $"    {r},{c}");
                     }
                     Console.ResetColor();
                 }
