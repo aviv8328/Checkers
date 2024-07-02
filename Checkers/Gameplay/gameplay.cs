@@ -83,8 +83,7 @@ namespace CheckersHafifa
             }
             catch (Exception e)
             {
-                Console.WriteLine("here");
-                Console.WriteLine(e.Message, e.Data);
+                Console.WriteLine(e.Message);
             }
         }
 
