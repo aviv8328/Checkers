@@ -1,3 +1,5 @@
+using System.Globalization;
+
 namespace CheckersHafifa
 {
     public class Gameplay()
@@ -7,6 +9,7 @@ namespace CheckersHafifa
         ParsePlayerMoves parsePlayerMoves = new();
         ValidateGameAttributes validateGameAttributes = new();
         Dictionary<int, Action> pieceActionsUponPlayerInput = new Dictionary<int, Action>();
+        PieceCreator pieceCreator = new();
         private Piece[,] _firstPlayerBoard;
         private Piece[,] _secondPlayerBoard;
         private Piece[,] _board;
@@ -151,10 +154,10 @@ namespace CheckersHafifa
 
             List<Action> actions = new List<Action>
             {
-                {() => MoveDiagonalLeft(row, col)},
-                {() => MoveDiagonalRight(row, col)},
-                {() => EatDiagonalLeft(row, col)},
-                {() => EatDiagonalRight(row, col)}
+                {() => MoveDiagonalLeft(row, col, currentPlayer)},
+                {() => MoveDiagonalRight(row, col, currentPlayer)},
+                {() => EatDiagonalLeft(row, col, currentPlayer)},
+                {() => EatDiagonalRight(row, col, currentPlayer)}
             };
 
             List<String> pieceValidActions = new List<string>();
@@ -188,24 +191,24 @@ namespace CheckersHafifa
             return (_board.GetLength(0) - 1 - row, _board.GetLength(1) - 1 - col);
         }
 
-        private void MovePiece(int row, int col, int rowOffset, int colOffset)
+        private void MovePiece(int row, int col, int rowOffset, int colOffset, Player currentPlayer)
         {   
             var (invertedRow, invertedCol) = InvertCoordinates(row, col);
 
             if (firstPlayer)
                 {
-                    _firstPlayerBoard[row + rowOffset, col + colOffset] = _firstPlayerBoard[row, col];
+                    _firstPlayerBoard[row + rowOffset, col + colOffset] = pieceCreator.GeneratePiece(currentPlayer.teamColor);
                     _firstPlayerBoard[row, col] = null;
 
-                    _secondPlayerBoard[invertedRow - rowOffset, invertedCol - colOffset] = _secondPlayerBoard[invertedRow, invertedCol];
+                    _secondPlayerBoard[invertedRow - rowOffset, invertedCol - colOffset] = pieceCreator.GeneratePiece(currentPlayer.teamColor);
                     _secondPlayerBoard[invertedRow, invertedCol] = null;
                 }
                 else
                 {
-                    _secondPlayerBoard[row + rowOffset, col + colOffset] = _secondPlayerBoard[row, col];
+                    _secondPlayerBoard[row + rowOffset, col + colOffset] = pieceCreator.GeneratePiece(currentPlayer.teamColor);
                     _secondPlayerBoard[row, col] = null;
 
-                    _firstPlayerBoard[invertedRow - rowOffset, invertedCol - colOffset] = _firstPlayerBoard[invertedRow, invertedCol];
+                    _firstPlayerBoard[invertedRow - rowOffset, invertedCol - colOffset] = pieceCreator.GeneratePiece(currentPlayer.teamColor);
                     _firstPlayerBoard[invertedRow, invertedCol] = null;
                 }
 
@@ -219,7 +222,7 @@ namespace CheckersHafifa
 
             if (firstPlayer)
             {
-                _firstPlayerBoard[4, 4].isAlive = false;
+                _firstPlayerBoard[row + rowOffset, col + colOffset].isAlive = false;
                 _secondPlayerBoard[invertedRow - rowOffset, invertedCol - colOffset].isAlive = false;
             }
             else
@@ -229,26 +232,26 @@ namespace CheckersHafifa
             }
         }
 
-        private void MoveDiagonalRight(int row, int col)
+        private void MoveDiagonalRight(int row, int col, Player currentPlayer)
         {
-            MovePiece(row, col, 1, 1);
+            MovePiece(row, col, 1, 1, currentPlayer);
         }
 
-        private void MoveDiagonalLeft(int row, int col)
+        private void MoveDiagonalLeft(int row, int col, Player currentPlayer)
         {
-            MovePiece(row, col, 1, -1);
+            MovePiece(row, col, 1, -1, currentPlayer);
         }
 
-        private void EatDiagonalLeft(int row, int col)
+        private void EatDiagonalLeft(int row, int col, Player currentPlayer)
         {
             killPiece(row, col, -1, -1);
-            MovePiece(row, col, -2, -2);
+            MovePiece(row, col, -2, -2, currentPlayer);
         }
   
-        private void EatDiagonalRight(int row, int col)
+        private void EatDiagonalRight(int row, int col, Player currentPlayer)
         {
             killPiece(row, col, 1, 1);
-            MovePiece(row, col, 2, 2);
+            MovePiece(row, col, 2, 2, currentPlayer);
         }
 
         private void AlternatePlayerTurns()
