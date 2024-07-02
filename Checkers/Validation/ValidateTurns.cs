@@ -31,7 +31,7 @@ namespace CheckersHafifa
 
         private bool ValidateCurrentPlayerPiece(Piece[,] board, string pieceColor)
         {
-            if (board[playerRow, playerCol] is null)
+            if (board[playerRow, playerCol].isAlive == false)
             {
                 return false;
             }
@@ -55,7 +55,7 @@ namespace CheckersHafifa
         }
         private bool CheckEatDiagonalLeft(Piece[,] board, int rowAndColOffset, Player currentPlayer)
         {   
-            if (board[playerRow + rowAndColOffset - 1, playerCol - rowAndColOffset + 1] == null)
+            if (board[playerRow + rowAndColOffset - 1, playerCol - rowAndColOffset + 1].isAlive == false)
             {
                 return false;
             }
@@ -74,7 +74,7 @@ namespace CheckersHafifa
 
         private bool CheckDiagonalLeftPiece(Piece[,] board, int rowAndColOffset )
         {
-            return board[playerRow + rowAndColOffset, playerCol - rowAndColOffset] is null;
+            return board[playerRow + rowAndColOffset, playerCol - rowAndColOffset].isAlive == false;
         }
 
         public bool ValidateMoveRightDiagonal(Piece[,] board, Player currentPlayer)
@@ -95,17 +95,17 @@ namespace CheckersHafifa
 
         private bool ValidateDiagonalRightRanges(Piece[,] board, int rowAndColOffset)
         {
-            return playerRow + rowAndColOffset <= board.GetLength(0) && playerCol + rowAndColOffset < board.GetLength(1);
+            return playerRow + rowAndColOffset < board.GetLength(0) && playerCol + rowAndColOffset < board.GetLength(1);
         }
 
         private bool CheckMoveDiagonalRight(Piece[,] board, int rowAndColOffset)
         {
-            return board[playerRow + rowAndColOffset, playerCol + rowAndColOffset] is null;
+            return board[playerRow + rowAndColOffset, playerCol + rowAndColOffset].isAlive == false;
         }
 
         private bool CheckEatDiagonalRight(Piece[,] board, int rowAndColOffset, Player currentPlayer)
         {   
-            if (board[playerRow + rowAndColOffset - 1, playerCol + rowAndColOffset - 1] == null)
+            if (board[playerRow + rowAndColOffset - 1, playerCol + rowAndColOffset - 1].isAlive == false)
             {
                 return false;
             }

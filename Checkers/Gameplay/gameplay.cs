@@ -198,18 +198,18 @@ namespace CheckersHafifa
             if (firstPlayer)
                 {
                     _firstPlayerBoard[row + rowOffset, col + colOffset] = pieceCreator.GeneratePiece(currentPlayer.teamColor);
-                    _firstPlayerBoard[row, col] = null;
+                    _firstPlayerBoard[row, col].isAlive = false;
 
                     _secondPlayerBoard[invertedRow - rowOffset, invertedCol - colOffset] = pieceCreator.GeneratePiece(currentPlayer.teamColor);
-                    _secondPlayerBoard[invertedRow, invertedCol] = null;
+                    _secondPlayerBoard[invertedRow, invertedCol].isAlive = false;
                 }
                 else
                 {
                     _secondPlayerBoard[row + rowOffset, col + colOffset] = pieceCreator.GeneratePiece(currentPlayer.teamColor);
-                    _secondPlayerBoard[row, col] = null;
+                    _secondPlayerBoard[row, col].isAlive = false;
 
                     _firstPlayerBoard[invertedRow - rowOffset, invertedCol - colOffset] = pieceCreator.GeneratePiece(currentPlayer.teamColor);
-                    _firstPlayerBoard[invertedRow, invertedCol] = null;
+                    _firstPlayerBoard[invertedRow, invertedCol].isAlive = false;
                 }
 
             UpdateCurrentBoard();

@@ -41,9 +41,28 @@ namespace CheckersHafifa
                 ChooseRowsToPopulate(player);
             }
 
+            PopulateBlankCells();
+
             // TODO: Remove print to console its testy
             PrintToConsole printToConsole = new();
             printToConsole.PrintBoardToConsole(board);
+        }
+
+        private void PopulateBlankCells()
+        {
+            int boardRowLength = board.GetLength(0);
+            int boardColLength = board.GetLength(1);
+
+            for (int row = 0; row < boardRowLength; row++)
+            {
+                for (int col = 0; col < boardColLength; col++)
+                {
+                    if (board[row, col] == null)
+                    {
+                        board[row, col] = pieceCreator.GeneratePiece("");
+                    }
+                }
+            }
         }
 
         private void ChooseRowsToPopulate(Player player)
@@ -76,7 +95,6 @@ namespace CheckersHafifa
 
         private void PopulateEvenRows(int currentRow, Player player)
         {
-            //TODO: generate pieces according to player team color in a dynamic way
             for (int i = 0; i < board.GetLength(0); i = i + 2)
             {
                 board[currentRow, i] = pieceCreator.GeneratePiece(player.teamColor);

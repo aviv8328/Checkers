@@ -4,9 +4,9 @@ namespace CheckersHafifa
     {
         public string pieceColor { get; }
         public bool isAlive {get; set;}
-        public Piece(string color)
+        public Piece(bool state, string color)
         {
-            isAlive = true;
+            isAlive = state;
             pieceColor = color;
         }
     }

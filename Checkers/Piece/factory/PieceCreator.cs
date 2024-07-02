@@ -4,6 +4,7 @@ namespace CheckersHafifa
     {
         WhitePieceFactory whitePieceFactory = new();
         BlackPieceFactory blackPieceFactory = new();
+        BlankPieceFactory blankPieceFactory = new();
         public Piece GeneratePiece(string playerColor)
         {
             switch (playerColor)
@@ -13,7 +14,7 @@ namespace CheckersHafifa
                 case "W":
                     return whitePieceFactory.CreatePiece();
                 default:
-                    return null;
+                    return blankPieceFactory.CreatePiece();
             }
         }
     }

@@ -2,6 +2,6 @@ namespace CheckersHafifa
 {
     public class WhitePiece : Piece
     {
-        public WhitePiece() : base("W"){}
+        public WhitePiece() : base(true, "W"){}
     }
 }
