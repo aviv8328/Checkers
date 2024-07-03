@@ -95,7 +95,7 @@ namespace CheckersHafifa
         {
             if (validateTurns.ValidateActionList(pieceActionsUponPlayerInput))
             {
-                int playerAction = validateGameAttributes.ReturnConsolePlayerAction();
+                int playerAction = validateGameAttributes.ReturnConsolePlayerAction(pieceActionsUponPlayerInput);
                 invokeActionUponPlayerInput(playerAction);
                 return true;
             }

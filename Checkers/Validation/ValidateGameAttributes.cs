@@ -42,7 +42,7 @@ namespace CheckersHafifa
             return playerAction;
         }
 
-        public int ReturnConsolePlayerAction()
+        public int ReturnConsolePlayerAction(Dictionary<int, Action> pieceActionsUponPlayerInput)
         {
             int playerAction;
             
@@ -50,14 +50,13 @@ namespace CheckersHafifa
             {
                 playerAction = GetConsolePlayerAction();
             }
-            while (!ValidatePlayerAction(playerAction));
+            while (!ValidatePlayerAction(playerAction, pieceActionsUponPlayerInput));
 
             return playerAction;
         }
-        public bool ValidatePlayerAction(int playerAction)
+        public bool ValidatePlayerAction(int playerAction, Dictionary<int, Action> pieceActionsUponPlayerInput)
         {
-            // TODO: Dynamic action validation (if he can only move forward then we need to check only on 3!)
-            if (playerAction == 1 || playerAction == 2 || playerAction == 3 || playerAction == 4 || playerAction == 5)
+            if (pieceActionsUponPlayerInput.ContainsKey(playerAction - 1))
             {
                 return true;
             }

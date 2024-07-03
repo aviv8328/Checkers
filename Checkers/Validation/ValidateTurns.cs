@@ -174,14 +174,9 @@ namespace CheckersHafifa
         public bool ValidateExit(PrintToConsole printToConsole)
         {
             printToConsole.PromptExit();
-            
-            int.TryParse(Console.ReadLine(), out int keepPlaying);
-            if (keepPlaying == 1)
-            {
-                return true;
-            }
 
-            return false;
+            int.TryParse(Console.ReadLine(), out int keepPlaying);
+            return keepPlaying == 1;
         }
     }
 }
