@@ -127,13 +127,6 @@ namespace CheckersHafifa
             return pieceActionsUponPlayerInput.Count > 0;
         }
 
-        // public bool ValidatePieceAction
-
-        // public bool ValidateIfQueen(Piece[,] board)
-        // {
-
-        // }
-
         public bool ValidateWinningPlayer(Piece[,] board, string teamColor)
         {
             int rowLength = board.GetLength(0);

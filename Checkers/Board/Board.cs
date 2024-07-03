@@ -1,9 +1,7 @@
 namespace CheckersHafifa
 {
-    //TODO: Change board from string[,] --> Piece[,].
     public class Board : IBoard
     {
-        // TODO: magic number to user variable
         Constants constants = new();
         public Player[] players = new Player[2];
         private int _boardSize;

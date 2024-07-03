@@ -1,6 +1,3 @@
-using System;
-using System.Runtime.InteropServices;
-
 namespace CheckersHafifa
 {
     public class ValidateGameAttributes : IValidate

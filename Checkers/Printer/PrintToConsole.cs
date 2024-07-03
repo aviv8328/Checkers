@@ -1,6 +1,6 @@
 namespace CheckersHafifa
 {
-    public class PrintToConsole //: IPrinter
+    public class PrintToConsole : IPrinter
     {
         public void GetBoardSize()
         {
@@ -34,10 +34,6 @@ namespace CheckersHafifa
                 {
                     Console.BackgroundColor = GetBackgroundColorOfSquare(r, c);
                     Console.ForegroundColor = ConsoleColor.Green;
-                    
-                    //Console.BackgroundColor == ConsoleColor.Black 
-                    //? ConsoleColor.White 
-                    //: ConsoleColor.Black;
 
                     if (board[r,c] is null)
                     {
