@@ -31,8 +31,8 @@ namespace CheckersHafifa
         public void GeneratePlayers()
         {
 
-            players[0] = new Player(GetPlayerAttributes(1), "W");
-            players[1] = new Player(GetPlayerAttributes(2), "B");
+            players[0] = new Player(GetPlayerAttributes(1), constants.WHITE);
+            players[1] = new Player(GetPlayerAttributes(2), constants.BLACK);
         }
 
         private string GetPlayerAttributes(int currentPlayer)
