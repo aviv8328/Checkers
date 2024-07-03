@@ -4,6 +4,7 @@ namespace CheckersHafifa
     public class Board : IBoard
     {
         // TODO: magic number to user variable
+        Constants constants = new();
         public Player[] players = new Player[2];
         private int _boardSize;
         public Piece[,] board;
@@ -73,12 +74,11 @@ namespace CheckersHafifa
             }
             else
             {
-                AlternateRowPopulating(player, board.GetLength(1) - 3);
+                AlternateRowPopulating(player, board.GetLength(1) - constants.NUMBER_OF_ROWS_TO_POPULATE);
             }
         }
         private void AlternateRowPopulating(Player player, int rowIndex)
         {
-            // TODO: length (3) extract to constants file as NUMBER_OF_ROWS_TO_POPULATE
             int maxRowIndex = rowIndex + 3;
             for (; rowIndex < maxRowIndex; rowIndex++)
             {
