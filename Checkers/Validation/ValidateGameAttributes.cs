@@ -79,9 +79,5 @@ namespace CheckersHafifa
 
             return boardSize;
         }
-        public bool ValidatePlayerName(string playerName)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
