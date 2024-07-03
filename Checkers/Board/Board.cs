@@ -30,8 +30,8 @@ namespace CheckersHafifa
         public void GeneratePlayers()
         {
             // TODO: make it dynamic
-            players[0] = new Player("ju", _boardSize, "W");
-            players[1] = new Player("bb", _boardSize, "B");
+            players[0] = new Player("ju", "W");
+            players[1] = new Player("bb", "B");
         }
 
         private void PopulateBoard()
