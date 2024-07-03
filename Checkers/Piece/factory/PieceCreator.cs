@@ -14,7 +14,7 @@ namespace CheckersHafifa
             }
             else if (playerColor == constants.WHITE)
             {
-                whitePieceFactory.CreatePiece();
+                return whitePieceFactory.CreatePiece();
             }
             return blankPieceFactory.CreatePiece();
         }
