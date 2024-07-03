@@ -87,6 +87,7 @@ namespace CheckersHafifa
             }
             catch (Exception e)
             {
+                Console.WriteLine(e.ToString());
                 Console.WriteLine(e.Message);
             }
         }
@@ -203,6 +204,12 @@ namespace CheckersHafifa
         {   
             var (invertedRow, invertedCol) = InvertCoordinates(row, col);
 
+            Console.WriteLine(row);
+            Console.WriteLine(col);
+            Console.WriteLine(rowOffset);
+            Console.WriteLine(colOffset);
+            Console.WriteLine(currentPlayer);
+
             if (firstPlayer)
                 {
                     _firstPlayerBoard[row + rowOffset, col + colOffset] = pieceCreator.GeneratePiece(currentPlayer.teamColor);
@@ -252,8 +259,8 @@ namespace CheckersHafifa
         {
             string newPosition = $"{row + -2},{col + -2}";
 
-            killPiece(row, col, -1, -1);
-            MovePiece(row, col, -2, -2, currentPlayer);
+            killPiece(row, col, 1, -1);
+            MovePiece(row, col, 2, -2, currentPlayer);
             SecondTurn(currentPlayer, newPosition);
         }
 
