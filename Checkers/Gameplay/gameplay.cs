@@ -79,10 +79,6 @@ namespace CheckersHafifa
   
         public void PromptCurrentPlayer(Player currentPlayer)
         {
-            //TODO :
-            // Get user input in different ways rather than console.readline
-            // Place parse row + col in different file
-
             try
             {
                 string playerMoveChoice = GetPlayerPiece(currentPlayer);
@@ -155,17 +151,14 @@ namespace CheckersHafifa
             // FIND A MORE DYNAMIC WAY TO CREATE THE LIST AND DICTIONARIES
             pieceActionsUponPlayerInput.Clear();
 
-            int row;
-            int col;
-
-            row = parsePlayerMoves.ParseRowPlayerMove(playerMoveChoice);
-            col = parsePlayerMoves.ParseColPlayerMove(playerMoveChoice);
+            int row = parsePlayerMoves.ParseRowPlayerMove(playerMoveChoice);
+            int col = parsePlayerMoves.ParseColPlayerMove(playerMoveChoice);
 
             var pieceActions = new Dictionary<Func<Piece[,], Player, bool>, string>
             {
                 { validateTurns.ValidateMoveLeftDiagonal, "To move left press 1" },
                 { validateTurns.ValidateMoveRightDiagonal, "To move right press 2" },
-                { validateTurns.ValidateEatLeftDiagonal, "To move right press 3" },
+                { validateTurns.ValidateEatLeftDiagonal, "To eat left press 3" },
                 { validateTurns.ValidateEatRightDiagonal, "To eat right press 4"},
             };
 
@@ -283,7 +276,7 @@ namespace CheckersHafifa
             if (!ActOnPlayerMove())
             {
                 UpdateCurrentBoard();
-            }
+            }            
         }
 
         private void AlternatePlayerTurns()

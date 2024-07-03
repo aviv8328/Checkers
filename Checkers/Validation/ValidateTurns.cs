@@ -148,19 +148,27 @@ namespace CheckersHafifa
             {
                 for (int col = 0; col < colLength; col++)
                 {
-                    if (board[row, col].pieceColor != teamColor)
+                    if (ValidateTeamColor(board, teamColor, row, col))
                     {
-                        return false;
-                    }
-
-                    else if (board[row, col].isAlive == false)
-                    {
-                        return false;
+                        if (!ValidateIsAlive(board, row, col))
+                        {
+                            return false;
+                        }
                     }
                 }
             }
 
             return true;
+        }
+
+        private bool ValidateTeamColor(Piece[,] board, string teamColor, int row, int col)
+        {
+            return board[row, col].pieceColor != teamColor;
+        }
+
+        private bool ValidateIsAlive(Piece[,] board, int row, int col)
+        {
+            return board[row, col].isAlive == true;
         }
 
         public bool ValidateExit(PrintToConsole printToConsole)
