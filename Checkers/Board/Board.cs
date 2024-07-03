@@ -43,16 +43,12 @@ namespace CheckersHafifa
 
         private void PopulateBoard()
         {
-            // TODO: make current col dynamic
             foreach (Player player in players)
             {
                 ChooseRowsToPopulate(player);
             }
 
             PopulateBlankCells();
-
-            // TODO: Remove print to console its testy
-            PrintToConsole printToConsole = new();
             printToConsole.PrintBoardToConsole(board);
         }
 
