@@ -7,6 +7,11 @@ namespace CheckersHafifa
             Console.WriteLine("Enter your desired board size, size must be a positive number >= 8!");
         }
 
+        public void GetPlayerName(int currentPlayer)
+        {
+            Console.WriteLine($"Enter player #{currentPlayer} name: ");
+        }
+
         public void PromptCurrentPlayerToConsole(Player currentPlayer)
         {
             Console.WriteLine(currentPlayer.playerName);

@@ -9,6 +9,7 @@ namespace CheckersHafifa
         private int _boardSize;
         public Piece[,] board;
         private PieceCreator pieceCreator = new();
+        private PrintToConsole printToConsole = new();
         public Board(int boardSize, Player[] userPlayers)
         {
             _boardSize = boardSize;
@@ -29,9 +30,15 @@ namespace CheckersHafifa
         
         public void GeneratePlayers()
         {
-            // TODO: make it dynamic
-            players[0] = new Player("ju", "W");
-            players[1] = new Player("bb", "B");
+
+            players[0] = new Player(GetPlayerAttributes(1), "W");
+            players[1] = new Player(GetPlayerAttributes(2), "B");
+        }
+
+        private string GetPlayerAttributes(int currentPlayer)
+        {
+            printToConsole.GetPlayerName(currentPlayer);
+            return Console.ReadLine();
         }
 
         private void PopulateBoard()
