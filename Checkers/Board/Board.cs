@@ -1,14 +1,17 @@
 namespace CheckersHafifa
 {
-    //TODO: Change board from string[,] --> Piece[,].
-    public class Board // : IBoard
+    public class Board : IBoard
     {
-        // TODO: magic number to user variable
+        Constants constants = new();
         public Player[] players = new Player[2];
         private int _boardSize;
-        public Board(int boardSize)
+        public Piece[,] board;
+        private PieceCreator pieceCreator = new();
+        private PrintToConsole printToConsole = new();
+        public Board(int boardSize, Player[] userPlayers)
         {
-            _boardSize = boardSize;   
+            _boardSize = boardSize;
+            players = userPlayers;
         }
         public Board()
         {
@@ -18,102 +21,100 @@ namespace CheckersHafifa
             printToConsole.GetBoardSize();
             _boardSize = validateGameAttributes.ReturnValidBoardSizeConsole();
         }
-        private string[,] CreateBoard()
+        public void CreateBoard()
         {
-            return new string[_boardSize,_boardSize];
+            board = new Piece[_boardSize,_boardSize];
         }
-
-
-        // TODO: Create 2 equal boards one for the black and one for the white side
-
-        // private string[,] CreateBlackBoard()
-        // {
-        //     return new string[_boardSize,_boardSize];
-        // }
-        // private string[,] CreateWhiteBoard()
-        // {
-        //     return new string[_boardSize,_boardSize];
-        // }
         
         public void GeneratePlayers()
         {
-            // TODO: make it dynamic
-            players[0] = new Player("ju", _boardSize, "W");
-            players[1] = new Player("bb", _boardSize, "B");
+
+            players[0] = new Player(GetPlayerAttributes(1), constants.WHITE);
+            players[1] = new Player(GetPlayerAttributes(2), constants.BLACK);
         }
 
-        private string[,] PopulateBoard()
+        private string GetPlayerAttributes(int currentPlayer)
         {
-            // TODO: make current col dynamic
-            string[,] board = CreateBoard();
+            printToConsole.GetPlayerName(currentPlayer);
+            return Console.ReadLine();
+        }
 
+        private void PopulateBoard()
+        {
             foreach (Player player in players)
             {
-                ChooseRowsToPopulate(board, player);
+                ChooseRowsToPopulate(player);
             }
 
-            // TODO: Remove print to console its testy
-            PrintToConsole printToConsole = new();
+            PopulateBlankCells();
             printToConsole.PrintBoardToConsole(board);
-
-            return board;       
         }
 
-        private void ChooseRowsToPopulate(string[,] board, Player player)
+        private void PopulateBlankCells()
+        {
+            int boardRowLength = board.GetLength(0);
+            int boardColLength = board.GetLength(1);
+
+            for (int row = 0; row < boardRowLength; row++)
+            {
+                for (int col = 0; col < boardColLength; col++)
+                {
+                    if (board[row, col] == null)
+                    {
+                        board[row, col] = pieceCreator.GeneratePiece("");
+                    }
+                }
+            }
+        }
+
+        private void ChooseRowsToPopulate(Player player)
         {
             if (player == players[0])
             {
-                AlternateRowPopulating(board, player, 0);
+                AlternateRowPopulating(player, 0);
             }
             else
             {
-                AlternateRowPopulating(board, player, board.GetLength(1) - 3);
+                AlternateRowPopulating(player, board.GetLength(1) - constants.NUMBER_OF_ROWS_TO_POPULATE);
             }
         }
-        private void AlternateRowPopulating(string[,] board, Player player, int colIndex)
+        private void AlternateRowPopulating(Player player, int rowIndex)
         {
-            // TODO: length (3) extract to constants file as NUMBER_OF_ROWS_TO_POPULATE
-            int maxColIndex = colIndex + 3;
-            for (; colIndex < maxColIndex; colIndex++)
+            int maxRowIndex = rowIndex + 3;
+            for (; rowIndex < maxRowIndex; rowIndex++)
             {
-                if (colIndex % 2 == 0)
+                if (rowIndex % 2 == 0)
                 {
-                    PopulateEvenRows(colIndex, player, board);
+                    PopulateEvenRows(rowIndex, player);
                 }
                 else
                 {
-                    PopulateNegativeRows(colIndex, player, board);
+                    PopulateNegativeRows(rowIndex, player);
                 }
             }
         }
 
-        private void PopulateEvenRows(int currentCol, Player player, string[,] board)
+        private void PopulateEvenRows(int currentRow, Player player)
         {
-            for (int i = 1; i < board.GetLength(0); i = i + 2)
+            for (int i = 0; i < board.GetLength(0); i = i + 2)
             {
-                board[currentCol, i] = player.pieces[currentCol].pieceColor;
+                board[currentRow, i] = pieceCreator.GeneratePiece(player.teamColor);
             }
         }
 
-        private void PopulateNegativeRows(int currentCol, Player player, string[,] board)
+        private void PopulateNegativeRows(int currentRow, Player player)
         {
-            for (int i = 0; i < board.GetLength(1); i = i + 2)
+            for (int i = 1; i < board.GetLength(1); i = i + 2)
             {
-                board[currentCol, i] = player.pieces[currentCol].pieceColor;
+                board[currentRow, i] = pieceCreator.GeneratePiece(player.teamColor);
             }
         }
 
-        private string[,] InitializeGame()
+        public void InitializeGameBoard()
         {
             CreateBoard();
             GeneratePlayers();
-            return PopulateBoard();
-        }
-
-        public void StartGame()
-        {
-            Gameplay gameplay = new();
-            gameplay.StartGame(players, InitializeGame());
+            PopulateBoard();
         }
     }
 }

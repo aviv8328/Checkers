@@ -7,22 +7,46 @@ namespace CheckersHafifa
             Console.WriteLine("Enter your desired board size, size must be a positive number >= 8!");
         }
 
+        public void GetPlayerName(int currentPlayer)
+        {
+            Console.WriteLine($"Enter player #{currentPlayer} name: ");
+        }
+
+        public void PromptCurrentPlayerToConsole(Player currentPlayer)
+        {
+            Console.WriteLine(currentPlayer.playerName);
+        }
+
         public void InvalidSize()
         {
             Console.WriteLine("Invalid Size! Size must be a valid positive number higher than 8!");
         }
-        public void PrintBoardToConsole(string[,] board)
+
+        public void InvalidAction()
         {
-            for (int r = 0; r < board.GetLength(0); r++)
+            Console.WriteLine("Invalid Action! Choose a number between 1-3!");
+        }
+        public void PrintBoardToConsole(Piece[,] board)
+        {
+            for (int r = board.GetLength(0) - 1; r >= 0; r--)
             {
                 for (int c = 0; c < board.GetLength(1); c++)
                 {
                     Console.BackgroundColor = GetBackgroundColorOfSquare(r, c);
-                    Console.ForegroundColor = Console.BackgroundColor == ConsoleColor.White 
-                        ? ConsoleColor.Black 
-                        : ConsoleColor.White;
-                    
-                    Console.Write($"         " + board[r, c] + "         ");
+                    Console.ForegroundColor = ConsoleColor.Green;
+
+                    if (board[r,c] is null)
+                    {
+                       Console.Write("        " + board[r, c] + $"     {r},{c}"); 
+                    }
+                    else if (board[r,c].isAlive is false)
+                    {
+                        Console.Write("        "  + $"     {r},{c}"); 
+                    }
+                    else
+                    {
+                       Console.Write("        " + board[r,c].pieceColor + $"    {r},{c}");
+                    }
                     Console.ResetColor();
                 }
                 Console.WriteLine();
@@ -31,7 +55,7 @@ namespace CheckersHafifa
 
         public ConsoleColor GetBackgroundColorOfSquare(int row, int col)
         {
-            return (row + col) % 2 == 0 ? ConsoleColor.White : ConsoleColor.Black;
+            return (row + col) % 2 == 0 ? ConsoleColor.Black : ConsoleColor.White;
         }
 
         public void PrintCurrentPlayerTurnToConsole(Player player)
@@ -62,6 +86,31 @@ namespace CheckersHafifa
         public void PromptExit()
         {
             Console.WriteLine("1: Exit, 2: Continue playing");
+        }
+
+        public void PromptNoValidMovesAvailable()
+        {
+            Console.WriteLine("No valid moves available");  
+        }
+
+        public void PrintCurrentAction(string currentAction)
+        {
+            Console.WriteLine(currentAction);
+        }
+
+        public void InvalidPiece()
+        {
+            Console.WriteLine("This is not your piece! Choose a different piece");
+        }
+
+        public void Winner(Player player)
+        {
+            Console.WriteLine($"{player.playerName} IS THE WINNER!");
+        }
+
+        public void ClearConsole()
+        {
+            Console.Clear();
         }
     }
 }

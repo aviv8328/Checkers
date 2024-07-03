@@ -2,7 +2,6 @@ namespace CheckersHafifa
 {
     public class WhitePiece : Piece
     {
-        public string color;
-        public WhitePiece() : base("W"){}
+        public WhitePiece() : base(new Constants().STARTING_PIECE_STATUS, new Constants().WHITE){}
     }
 }

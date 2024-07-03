@@ -4,8 +4,8 @@
     {
         public static void Main(string[] args)
         {
-            Board board = new();
-            board.StartGame();
+            Checkers checkers = new();
+            checkers.StartGame();
         }
     }
 }

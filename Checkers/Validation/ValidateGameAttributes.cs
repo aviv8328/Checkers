@@ -1,10 +1,8 @@
-using System;
-using System.Runtime.InteropServices;
-
 namespace CheckersHafifa
 {
     public class ValidateGameAttributes : IValidate
     {
+        Constants constants = new();
         PrintToConsole printToConsole = new();
         private int GetConsoleBoardSize()
         {
@@ -19,13 +17,50 @@ namespace CheckersHafifa
         }
         public bool ValidateBoardSize(int boardSize)
         {
-            if (boardSize % 2 == 0 && boardSize >= 8)
+            if (boardSize % 2 == 0 && boardSize >= constants.MINIMUM_BOARD_SIZE)
             {
                 return true;
             }
             else
             {
                 printToConsole.InvalidSize();
+                return false;
+            }
+        }
+
+        private int GetConsolePlayerAction()
+        {
+            int playerAction;
+
+            while (!int.TryParse(Console.ReadLine(), out playerAction))
+            {
+                printToConsole.InvalidAction();
+            };
+
+            return playerAction;
+        }
+
+        public int ReturnConsolePlayerAction(Dictionary<int, Action> pieceActionsUponPlayerInput)
+        {
+            int playerAction;
+            
+            do
+            {
+                playerAction = GetConsolePlayerAction();
+            }
+            while (!ValidatePlayerAction(playerAction, pieceActionsUponPlayerInput));
+
+            return playerAction;
+        }
+        public bool ValidatePlayerAction(int playerAction, Dictionary<int, Action> pieceActionsUponPlayerInput)
+        {
+            if (pieceActionsUponPlayerInput.ContainsKey(playerAction - 1))
+            {
+                return true;
+            }
+            else
+            {
+                printToConsole.InvalidAction();
                 return false;
             }
         }
@@ -41,10 +76,6 @@ namespace CheckersHafifa
             while (!ValidateBoardSize(boardSize));
 
             return boardSize;
-        }
-        public bool ValidatePlayerName(string playerName)
-        {
-            throw new NotImplementedException();
         }
     }
 }
