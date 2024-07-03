@@ -5,6 +5,7 @@ namespace CheckersHafifa
 {
     public class ValidateGameAttributes : IValidate
     {
+        Constants constants = new();
         PrintToConsole printToConsole = new();
         private int GetConsoleBoardSize()
         {
@@ -19,7 +20,7 @@ namespace CheckersHafifa
         }
         public bool ValidateBoardSize(int boardSize)
         {
-            if (boardSize % 2 == 0 && boardSize >= 8)
+            if (boardSize % 2 == 0 && boardSize >= constants.MINIMUM_BOARD_SIZE)
             {
                 return true;
             }
