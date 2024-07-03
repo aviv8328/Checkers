@@ -5,17 +5,18 @@ namespace CheckersHafifa
         WhitePieceFactory whitePieceFactory = new();
         BlackPieceFactory blackPieceFactory = new();
         BlankPieceFactory blankPieceFactory = new();
+        Constants constants = new();
         public Piece GeneratePiece(string playerColor)
         {
-            switch (playerColor)
+            if (playerColor == constants.BLACK)
             {
-                case "B":
-                    return blackPieceFactory.CreatePiece();
-                case "W":
-                    return whitePieceFactory.CreatePiece();
-                default:
-                    return blankPieceFactory.CreatePiece();
+                return blackPieceFactory.CreatePiece();
             }
+            else if (playerColor == constants.WHITE)
+            {
+                whitePieceFactory.CreatePiece();
+            }
+            return blankPieceFactory.CreatePiece();
         }
     }
 }
